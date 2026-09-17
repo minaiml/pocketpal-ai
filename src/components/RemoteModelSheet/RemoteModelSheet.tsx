@@ -31,9 +31,8 @@ import {
   SERVER_TYPE_DROPDOWN_OPTIONS,
   seedServerType,
 } from '../../utils/serverTypes';
-import {ServerConfig} from '../../utils/types';
+import {RemoteModelInfo, ServerConfig} from '../../utils/types';
 import {
-  RemoteModelInfo,
   fetchModels,
   fetchModelsWithHeaders,
   detectServerType,

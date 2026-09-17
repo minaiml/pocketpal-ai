@@ -2,12 +2,12 @@ import {makeAutoObservable, observable} from 'mobx';
 
 import {
   RemoteModelCaps,
+  RemoteModelInfo,
   RemoteModelPresence,
   RemoteModelProps,
   ServerConfig,
 } from '../../src/utils/types';
 import {ReasoningCapability} from '../../src/utils/reasoningCapability';
-import {RemoteModelInfo} from '../../src/api/openai';
 import {deriveListCapsMap} from '../../src/utils/listCaps';
 import {
   SleepState,

@@ -5,9 +5,7 @@ import {
 } from '../../../jest/fixtures/remoteModelList';
 import {deriveListCaps, deriveListCapsMap} from '../listCaps';
 import type {ListDerivedCaps} from '../listCaps';
-import type {RemoteModelCaps, ServerConfig} from '../types';
-
-import type {RemoteModelInfo} from '../../api/openai';
+import type {RemoteModelCaps, RemoteModelInfo, ServerConfig} from '../types';
 
 const routerRow = (id: string): RemoteModelInfo => {
   const row = routerModelsBody.data.find(r => r.id === id);

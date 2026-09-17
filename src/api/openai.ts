@@ -9,25 +9,11 @@ import {
 } from '../utils/completionTypes';
 import {
   RemoteModelCaps,
+  RemoteModelInfo,
   RemoteModelPresence,
   RemoteModelProps,
   SamplerDefaults,
 } from '../utils/types';
-
-/**
- * Raw API response shape from OpenAI /v1/models. The optional fields are what
- * a llama.cpp server adds: the first three arrive on the row itself, the last
- * is lifted from the sibling `models[]` array a single-model server emits.
- */
-export interface RemoteModelInfo {
-  id: string;
-  object: string;
-  owned_by: string;
-  status?: {value?: string; args?: string[]};
-  architecture?: {input_modalities?: string[]; output_modalities?: string[]};
-  meta?: {n_ctx?: number; n_ctx_train?: number; [key: string]: unknown};
-  capabilities?: string[];
-}
 
 /** Chat message type compatible with OpenAI API format */
 export interface OpenAIChatMessage {

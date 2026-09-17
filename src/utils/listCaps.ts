@@ -1,5 +1,4 @@
-import type {RemoteModelInfo} from '../api/openai';
-import type {ServerConfig} from './types';
+import type {RemoteModelInfo, ServerConfig} from './types';
 
 /**
  * What a `GET /v1/models` row already says about a model, before anything is

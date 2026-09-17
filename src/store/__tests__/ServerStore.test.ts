@@ -26,8 +26,7 @@ jest
 // Import the singleton after mocks
 import {serverStore} from '../ServerStore';
 import {routerModelsBody} from '../../../jest/fixtures/remoteModelList';
-import type {RemoteModelInfo} from '../../api/openai';
-import type {RemoteModelCaps} from '../../utils/types';
+import type {RemoteModelCaps, RemoteModelInfo} from '../../utils/types';
 
 // Captured at import time: the constructor runs once, and `clearAllMocks`
 // between tests would otherwise erase the only call there ever is.

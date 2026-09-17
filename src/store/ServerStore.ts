@@ -10,10 +10,10 @@ import {
   fetchServerProps,
   testConnection,
   PROPS_TIMEOUT_MS,
-  RemoteModelInfo,
 } from '../api/openai';
 import {
   RemoteModelCaps,
+  RemoteModelInfo,
   RemoteModelPresence,
   RemoteModelProps,
   ServerConfig,
