@@ -45,6 +45,15 @@ describe('bodyExtras (per-serverType reasoning gating)', () => {
     ]);
   });
 
+  it('llama.cpp sends an effort that is not a level, but no budget for it', () => {
+    expect(
+      reasoningBody('llama.cpp', {enabled: true, effort: 'extreme'}),
+    ).toEqual({
+      reasoning_format: 'auto',
+      chat_template_kwargs: {reasoning_effort: 'extreme'},
+    });
+  });
+
   it('llama.cpp sends no budget when reasoning is on without an effort', () => {
     const on = reasoningBody('llama.cpp', {enabled: true});
     expect(on).not.toHaveProperty('reasoning_budget_tokens');
@@ -134,10 +143,15 @@ describe('bodyExtras (per-serverType reasoning gating)', () => {
 });
 
 describe('bodyExtras (sampler forwarding)', () => {
-  // The server's own vocabulary, projected from a live `/slots` body rather
-  // than restated here: a name spelled the same way in the parser and in a
-  // hand-written fixture would agree with itself and with nothing else.
-  const serverSamplerNames = Object.keys(slotsAfterSamplerRequest[0].params);
+  // The read-back of a request carrying the `settings` below, so the slot
+  // holds both the server's own vocabulary and the values it accepted under
+  // it. Projected from the live body rather than restated here: a name spelled
+  // the same way in the parser and in a hand-written fixture would agree with
+  // itself and with nothing else. Slot 0 holds the server's defaults, which
+  // would prove the names and none of the values.
+  const appSlot = slotsAfterSamplerRequest[3];
+  const serverParams = appSlot.params as unknown as Record<string, number>;
+  const serverSamplerNames = Object.keys(serverParams);
 
   const settings = {
     temperature: 0.33,
@@ -187,6 +201,21 @@ describe('bodyExtras (sampler forwarding)', () => {
     );
     for (const name of Object.keys(payload)) {
       expect(serverSamplerNames).toContain(readNameOf[name]);
+    }
+  });
+
+  it('lands each value under the name the server reports it back under', () => {
+    const payload = samplerBody('llama.cpp', settings);
+    // The captured request set its own length and pre-dates n_probs
+    // forwarding, so those two values cannot be read back from it.
+    const notCaptured = ['n_predict', 'n_probs'];
+
+    for (const [param, wireName] of Object.entries(llamaCpp.sendNames)) {
+      if (notCaptured.includes(param)) {
+        continue;
+      }
+      const readName = PROPS_READ_NAMES[param as SamplerParam];
+      expect(serverParams[readName]).toBeCloseTo(Number(payload[wireName]), 6);
     }
   });
 

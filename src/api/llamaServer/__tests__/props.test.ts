@@ -307,6 +307,37 @@ describe('fetchServerProps', () => {
     expect(props.samplerDefaults?.penalty_present).toBe(0);
   });
 
+  it('drops a sampler default the server reports as a non-number', async () => {
+    global.fetch = jest.fn().mockResolvedValueOnce({
+      ok: true,
+      json: () =>
+        Promise.resolve({
+          ...propsModelDescribing,
+          default_generation_settings: {
+            ...propsModelDescribing.default_generation_settings,
+            params: {
+              ...propsModelDescribing.default_generation_settings.params,
+              temperature: 'hot',
+              top_k: Infinity,
+              min_p: null,
+              top_p: NaN,
+            },
+          },
+        }),
+    });
+
+    const {props} = await fetchServerProps('http://localhost:8080');
+
+    // Absent beats wrong: a control whose default cannot be read offers no
+    // reset rather than one that would send a value the server never gave.
+    expect(props.samplerDefaults).not.toHaveProperty('temperature');
+    expect(props.samplerDefaults).not.toHaveProperty('top_k');
+    expect(props.samplerDefaults).not.toHaveProperty('min_p');
+    expect(props.samplerDefaults).not.toHaveProperty('top_p');
+    // The rest of the body still parses.
+    expect(props.samplerDefaults?.mirostat).toBe(0);
+  });
+
   it('does not offer the live seed as a default to return to', async () => {
     global.fetch = jest.fn().mockResolvedValueOnce({
       ok: true,
