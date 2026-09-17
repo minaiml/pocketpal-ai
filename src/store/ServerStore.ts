@@ -5,12 +5,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {makePersistable} from 'mobx-persist-store';
 import * as Keychain from 'react-native-keychain';
 
-import {
-  fetchModels,
-  fetchServerProps,
-  testConnection,
-  PROPS_TIMEOUT_MS,
-} from '../api/openai';
+import {fetchModels, testConnection} from '../api/openai';
+import {fetchServerProps, PROPS_TIMEOUT_MS} from '../api/llamaServer/props';
 import {
   RemoteModelCaps,
   RemoteModelInfo,

@@ -4,6 +4,7 @@ import {runInAction} from 'mobx';
 import * as Keychain from 'react-native-keychain';
 
 import * as openaiModule from '../../api/openai';
+import * as propsModule from '../../api/llamaServer/props';
 
 // Mock dependencies before importing the store
 jest.mock('mobx-persist-store', () => ({
@@ -12,8 +13,11 @@ jest.mock('mobx-persist-store', () => ({
 
 jest.mock('../../api/openai', () => ({
   fetchModels: jest.fn(),
-  fetchServerProps: jest.fn(),
   testConnection: jest.fn(),
+}));
+
+jest.mock('../../api/llamaServer/props', () => ({
+  fetchServerProps: jest.fn(),
   PROPS_TIMEOUT_MS: 5000,
 }));
 
@@ -38,9 +42,9 @@ const persistedProperties: string[] = (
 const capsOnly = (caps: RemoteModelCaps) => ({caps, props: {}});
 
 const mockedFetchModels = openaiModule.fetchModels as jest.Mock;
-const mockedFetchServerProps = openaiModule.fetchServerProps as jest.Mock;
+const mockedFetchServerProps = propsModule.fetchServerProps as jest.Mock;
 const mockedTestConnection = openaiModule.testConnection as jest.Mock;
-const {PROPS_TIMEOUT_MS} = openaiModule;
+const {PROPS_TIMEOUT_MS} = propsModule;
 
 describe('ServerStore', () => {
   beforeEach(() => {

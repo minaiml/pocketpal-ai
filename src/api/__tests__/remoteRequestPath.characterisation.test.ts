@@ -5,7 +5,7 @@
  * change and has to be intended.
  */
 import {OpenAICompletionEngine} from '../completionEngines';
-import {fetchServerProps} from '../openai';
+import {fetchServerProps} from '../llamaServer/props';
 import {deriveListCaps} from '../../utils/listCaps';
 import {EFFORT_LEVELS} from '../../utils/reasoningCapability';
 import {
