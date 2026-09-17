@@ -5,6 +5,7 @@ import {
   ReasoningIntent,
   ToolCall,
 } from '../utils/completionTypes';
+import {reasoningBudgetFor} from '../utils/reasoningCapability';
 import {RemoteModelInfo} from '../utils/types';
 import {
   CONNECTION_TIMEOUT_MS,
@@ -373,16 +374,6 @@ export async function testConnection(
  * React Native's fetch does not expose response.body (ReadableStream), so
  * XMLHttpRequest with onprogress is the standard approach for SSE streaming.
  */
-/** Thinking budget per effort level; `-1` is llama.cpp's uncapped sentinel. */
-const REASONING_BUDGET_TOKENS: Record<string, number> = {
-  minimal: 256,
-  low: 512,
-  medium: 2048,
-  high: 8192,
-  xhigh: 16384,
-  max: -1,
-};
-
 /**
  * Translate the reasoning intent into the per-serverType wire payload. Gating
  * is keyed on the PERSISTED serverType (never live detection). An unknown /
@@ -410,6 +401,7 @@ export function buildReasoningPayload(
     return {};
   }
   const {enabled, effort} = reasoning;
+  const budget = reasoningBudgetFor(effort);
   switch (serverType) {
     case 'llama.cpp':
       // reasoning_format is always 'auto': a no-op for non-reasoning models and
@@ -427,7 +419,7 @@ export function buildReasoningPayload(
         ? {
             reasoning_format: 'auto',
             chat_template_kwargs: {reasoning_effort: effort},
-            reasoning_budget_tokens: REASONING_BUDGET_TOKENS[effort] ?? -1,
+            ...(budget !== undefined && {reasoning_budget_tokens: budget}),
           }
         : {reasoning_format: 'auto'};
     case 'vLLM':

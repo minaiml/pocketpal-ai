@@ -2534,7 +2534,6 @@ exports[`request body server type: llama.cpp reasoning: on, not a level 1`] = `
     },
   ],
   "model": "m",
-  "reasoning_budget_tokens": -1,
   "reasoning_format": "auto",
   "stream": true,
 }
