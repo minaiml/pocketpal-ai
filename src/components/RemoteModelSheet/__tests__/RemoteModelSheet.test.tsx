@@ -433,6 +433,22 @@ describe('RemoteModelSheet', () => {
       expect(getByTestId(slot(VISION))).toBeTruthy();
     });
 
+    it.each([
+      ['llama.cpp', true],
+      ['LM Studio', false],
+      ['Ollama', false],
+      ['OpenAI', false],
+      ['vLLM', false],
+      ['unknown', false],
+      ['', false],
+      ['LLAMA.CPP', false],
+      ['my server', false],
+    ])('shows the slot for server type %j: %s', async (type, shown) => {
+      const {queryByTestId} = await openViaChip(type);
+
+      expect(queryByTestId(slot(VISION)) !== null).toBe(shown);
+    });
+
     it('renders no slot at all on a server of another type', async () => {
       const {queryByTestId} = await openViaChip('Ollama');
 

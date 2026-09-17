@@ -1,0 +1,4180 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`/props parse a failed request 1`] = `
+{
+  "caps": {},
+  "props": {},
+}
+`;
+
+exports[`/props parse empty object 1`] = `
+{
+  "bare": {
+    "result": {
+      "caps": {},
+      "presence": undefined,
+      "props": {},
+    },
+    "url": [
+      "http://localhost:8080/props",
+    ],
+  },
+  "scoped": {
+    "result": {
+      "caps": {},
+      "presence": undefined,
+      "props": {},
+    },
+    "url": [
+      "http://localhost:8080/props?model=bartowski%2FQwen_Qwen3-1.7B-GGUF%3AQ4_K_M",
+    ],
+  },
+}
+`;
+
+exports[`/props parse model-describing body 1`] = `
+{
+  "bare": {
+    "result": {
+      "caps": {
+        "contextLength": 8192,
+        "supportsAudio": false,
+        "supportsVision": false,
+      },
+      "presence": {
+        "at": 1700000000000,
+        "isSleeping": false,
+        "probedUrl": "http://localhost:8080",
+      },
+      "props": {
+        "chatTemplateCaps": {
+          "supportsTools": true,
+        },
+        "samplerDefaults": {
+          "min_p": 0.05000000074505806,
+          "mirostat": 0,
+          "mirostat_eta": 0.10000000149011612,
+          "mirostat_tau": 5,
+          "n_predict": -1,
+          "penalty_freq": 0,
+          "penalty_last_n": 64,
+          "penalty_present": 0,
+          "penalty_repeat": 1,
+          "temperature": 0.800000011920929,
+          "top_k": 40,
+          "top_p": 0.949999988079071,
+          "typical_p": 1,
+          "xtc_probability": 0,
+          "xtc_threshold": 0.10000000149011612,
+        },
+        "slotCount": 4,
+      },
+    },
+    "url": [
+      "http://localhost:8080/props",
+    ],
+  },
+  "scoped": {
+    "result": {
+      "caps": {
+        "contextLength": 8192,
+        "supportsAudio": false,
+        "supportsVision": false,
+      },
+      "presence": {
+        "at": 1700000000000,
+        "isSleeping": false,
+        "probedUrl": "http://localhost:8080",
+      },
+      "props": {
+        "chatTemplateCaps": {
+          "supportsTools": true,
+        },
+        "samplerDefaults": {
+          "min_p": 0.05000000074505806,
+          "mirostat": 0,
+          "mirostat_eta": 0.10000000149011612,
+          "mirostat_tau": 5,
+          "n_predict": -1,
+          "penalty_freq": 0,
+          "penalty_last_n": 64,
+          "penalty_present": 0,
+          "penalty_repeat": 1,
+          "temperature": 0.800000011920929,
+          "top_k": 40,
+          "top_p": 0.949999988079071,
+          "typical_p": 1,
+          "xtc_probability": 0,
+          "xtc_threshold": 0.10000000149011612,
+        },
+        "slotCount": 4,
+      },
+    },
+    "url": [
+      "http://localhost:8080/props?model=bartowski%2FQwen_Qwen3-1.7B-GGUF%3AQ4_K_M",
+    ],
+  },
+}
+`;
+
+exports[`/props parse null body 1`] = `
+{
+  "bare": {
+    "result": {
+      "caps": {},
+      "presence": undefined,
+      "props": {},
+    },
+    "url": [
+      "http://localhost:8080/props",
+    ],
+  },
+  "scoped": {
+    "result": {
+      "caps": {},
+      "presence": undefined,
+      "props": {},
+    },
+    "url": [
+      "http://localhost:8080/props?model=bartowski%2FQwen_Qwen3-1.7B-GGUF%3AQ4_K_M",
+    ],
+  },
+}
+`;
+
+exports[`/props parse router placeholder 1`] = `
+{
+  "bare": {
+    "result": {
+      "caps": {},
+      "presence": undefined,
+      "props": {},
+    },
+    "url": [
+      "http://localhost:8080/props",
+    ],
+  },
+  "scoped": {
+    "result": {
+      "caps": {},
+      "presence": undefined,
+      "props": {},
+    },
+    "url": [
+      "http://localhost:8080/props?model=bartowski%2FQwen_Qwen3-1.7B-GGUF%3AQ4_K_M",
+    ],
+  },
+}
+`;
+
+exports[`/props parse server error 1`] = `
+{
+  "bare": {
+    "result": {
+      "caps": {},
+      "props": {},
+    },
+    "url": [
+      "http://localhost:8080/props",
+    ],
+  },
+  "scoped": {
+    "result": {
+      "caps": {},
+      "props": {},
+    },
+    "url": [
+      "http://localhost:8080/props?model=bartowski%2FQwen_Qwen3-1.7B-GGUF%3AQ4_K_M",
+    ],
+  },
+}
+`;
+
+exports[`/props parse unparseable body 1`] = `
+{
+  "bare": {
+    "result": {
+      "caps": {},
+      "props": {},
+    },
+    "url": [
+      "http://localhost:8080/props",
+    ],
+  },
+  "scoped": {
+    "result": {
+      "caps": {},
+      "props": {},
+    },
+    "url": [
+      "http://localhost:8080/props?model=bartowski%2FQwen_Qwen3-1.7B-GGUF%3AQ4_K_M",
+    ],
+  },
+}
+`;
+
+exports[`/props parse wrong-typed and non-finite values 1`] = `
+{
+  "bare": {
+    "result": {
+      "caps": {
+        "supportsAudio": false,
+        "supportsVision": false,
+      },
+      "presence": {
+        "at": 1700000000000,
+        "isSleeping": false,
+        "probedUrl": "http://localhost:8080",
+      },
+      "props": {
+        "samplerDefaults": {
+          "mirostat": 0,
+          "mirostat_eta": 0.10000000149011612,
+          "mirostat_tau": 5,
+          "n_predict": -1,
+          "penalty_freq": 0,
+          "penalty_last_n": 64,
+          "penalty_present": 0,
+          "penalty_repeat": 1,
+          "typical_p": 1,
+          "xtc_probability": 0,
+          "xtc_threshold": 0.10000000149011612,
+        },
+      },
+    },
+    "url": [
+      "http://localhost:8080/props",
+    ],
+  },
+  "scoped": {
+    "result": {
+      "caps": {
+        "supportsAudio": false,
+        "supportsVision": false,
+      },
+      "presence": {
+        "at": 1700000000000,
+        "isSleeping": false,
+        "probedUrl": "http://localhost:8080",
+      },
+      "props": {
+        "samplerDefaults": {
+          "mirostat": 0,
+          "mirostat_eta": 0.10000000149011612,
+          "mirostat_tau": 5,
+          "n_predict": -1,
+          "penalty_freq": 0,
+          "penalty_last_n": 64,
+          "penalty_present": 0,
+          "penalty_repeat": 1,
+          "typical_p": 1,
+          "xtc_probability": 0,
+          "xtc_threshold": 0.10000000149011612,
+        },
+      },
+    },
+    "url": [
+      "http://localhost:8080/props?model=bartowski%2FQwen_Qwen3-1.7B-GGUF%3AQ4_K_M",
+    ],
+  },
+}
+`;
+
+exports[`list-row caps server type: LM Studio absent row 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: LM Studio direct text gemma-3-4b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: LM Studio direct vision gemma-4-e2b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: LM Studio router bartowski/Qwen_Qwen3-1.7B-GGUF:Q4_K_M 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: LM Studio router bonsai-27b-q1 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: LM Studio router gemma-3-4b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: LM Studio router gemma-4-e2b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: LM Studio router ggml-org/gemma-4-31B-it-GGUF:Q8_0 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: Ollama absent row 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: Ollama direct text gemma-3-4b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: Ollama direct vision gemma-4-e2b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: Ollama router bartowski/Qwen_Qwen3-1.7B-GGUF:Q4_K_M 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: Ollama router bonsai-27b-q1 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: Ollama router gemma-3-4b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: Ollama router gemma-4-e2b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: Ollama router ggml-org/gemma-4-31B-it-GGUF:Q8_0 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: OpenAI absent row 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: OpenAI direct text gemma-3-4b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: OpenAI direct vision gemma-4-e2b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: OpenAI router bartowski/Qwen_Qwen3-1.7B-GGUF:Q4_K_M 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: OpenAI router bonsai-27b-q1 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: OpenAI router gemma-3-4b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: OpenAI router gemma-4-e2b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: OpenAI router ggml-org/gemma-4-31B-it-GGUF:Q8_0 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: case variant absent row 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: case variant direct text gemma-3-4b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: case variant direct vision gemma-4-e2b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: case variant router bartowski/Qwen_Qwen3-1.7B-GGUF:Q4_K_M 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: case variant router bonsai-27b-q1 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: case variant router gemma-3-4b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: case variant router gemma-4-e2b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: case variant router ggml-org/gemma-4-31B-it-GGUF:Q8_0 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: empty string absent row 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: empty string direct text gemma-3-4b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: empty string direct vision gemma-4-e2b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: empty string router bartowski/Qwen_Qwen3-1.7B-GGUF:Q4_K_M 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: empty string router bonsai-27b-q1 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: empty string router gemma-3-4b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: empty string router gemma-4-e2b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: empty string router ggml-org/gemma-4-31B-it-GGUF:Q8_0 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: free string absent row 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: free string direct text gemma-3-4b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: free string direct vision gemma-4-e2b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: free string router bartowski/Qwen_Qwen3-1.7B-GGUF:Q4_K_M 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: free string router bonsai-27b-q1 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: free string router gemma-3-4b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: free string router gemma-4-e2b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: free string router ggml-org/gemma-4-31B-it-GGUF:Q8_0 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: llama.cpp absent row 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: llama.cpp direct text gemma-3-4b 1`] = `
+{
+  "contextLength": 8192,
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: llama.cpp direct vision gemma-4-e2b 1`] = `
+{
+  "contextLength": 8192,
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: llama.cpp router bartowski/Qwen_Qwen3-1.7B-GGUF:Q4_K_M 1`] = `
+{
+  "contextLength": 8192,
+  "supportsVision": false,
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: llama.cpp router bonsai-27b-q1 1`] = `
+{
+  "contextLength": 8192,
+  "supportsVision": false,
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: llama.cpp router gemma-3-4b 1`] = `
+{
+  "contextLength": 8192,
+  "supportsVision": false,
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: llama.cpp router gemma-4-e2b 1`] = `
+{
+  "contextLength": 8192,
+  "supportsVision": true,
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: llama.cpp router ggml-org/gemma-4-31B-it-GGUF:Q8_0 1`] = `
+{
+  "contextLength": 8192,
+  "supportsVision": true,
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: undefined absent row 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: undefined direct text gemma-3-4b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: undefined direct vision gemma-4-e2b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: undefined router bartowski/Qwen_Qwen3-1.7B-GGUF:Q4_K_M 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: undefined router bonsai-27b-q1 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: undefined router gemma-3-4b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: undefined router gemma-4-e2b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: undefined router ggml-org/gemma-4-31B-it-GGUF:Q8_0 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: unknown absent row 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: unknown direct text gemma-3-4b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: unknown direct vision gemma-4-e2b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: unknown router bartowski/Qwen_Qwen3-1.7B-GGUF:Q4_K_M 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: unknown router bonsai-27b-q1 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: unknown router gemma-3-4b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: unknown router gemma-4-e2b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: unknown router ggml-org/gemma-4-31B-it-GGUF:Q8_0 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: vLLM absent row 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: vLLM direct text gemma-3-4b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: vLLM direct vision gemma-4-e2b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: vLLM router bartowski/Qwen_Qwen3-1.7B-GGUF:Q4_K_M 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: vLLM router bonsai-27b-q1 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: vLLM router gemma-3-4b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: vLLM router gemma-4-e2b 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`list-row caps server type: vLLM router ggml-org/gemma-4-31B-it-GGUF:Q8_0 1`] = `
+{
+  "tier": "list",
+}
+`;
+
+exports[`request body server type: LM Studio reasoning off with samplers 1`] = `
+{
+  "chat_template_kwargs": {
+    "enable_thinking": false,
+  },
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: LM Studio reasoning: no intent 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: LM Studio reasoning: off 1`] = `
+{
+  "chat_template_kwargs": {
+    "enable_thinking": false,
+  },
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: LM Studio reasoning: off with effort 1`] = `
+{
+  "chat_template_kwargs": {
+    "enable_thinking": false,
+  },
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: LM Studio reasoning: on, high 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: LM Studio reasoning: on, low 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: LM Studio reasoning: on, max 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: LM Studio reasoning: on, medium 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: LM Studio reasoning: on, minimal 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: LM Studio reasoning: on, no effort 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: LM Studio reasoning: on, not a level 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: LM Studio reasoning: on, xhigh 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: LM Studio samplers and reasoning together 1`] = `
+{
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: LM Studio samplers: distinctive 1`] = `
+{
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: LM Studio samplers: none 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: LM Studio samplers: temperature only 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+  "temperature": 0.2,
+}
+`;
+
+exports[`request body server type: LM Studio samplers: unlimited length 1`] = `
+{
+  "max_completion_tokens": -1,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: Ollama reasoning off with samplers 1`] = `
+{
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "reasoning_effort": "none",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: Ollama reasoning: no intent 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: Ollama reasoning: off 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "reasoning_effort": "none",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: Ollama reasoning: off with effort 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "reasoning_effort": "none",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: Ollama reasoning: on, high 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: Ollama reasoning: on, low 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: Ollama reasoning: on, max 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: Ollama reasoning: on, medium 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: Ollama reasoning: on, minimal 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: Ollama reasoning: on, no effort 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: Ollama reasoning: on, not a level 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: Ollama reasoning: on, xhigh 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: Ollama samplers and reasoning together 1`] = `
+{
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: Ollama samplers: distinctive 1`] = `
+{
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: Ollama samplers: none 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: Ollama samplers: temperature only 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+  "temperature": 0.2,
+}
+`;
+
+exports[`request body server type: Ollama samplers: unlimited length 1`] = `
+{
+  "max_completion_tokens": -1,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: OpenAI reasoning off with samplers 1`] = `
+{
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: OpenAI reasoning: no intent 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: OpenAI reasoning: off 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: OpenAI reasoning: off with effort 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "reasoning_effort": "high",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: OpenAI reasoning: on, high 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "reasoning_effort": "high",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: OpenAI reasoning: on, low 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "reasoning_effort": "low",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: OpenAI reasoning: on, max 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "reasoning_effort": "max",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: OpenAI reasoning: on, medium 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "reasoning_effort": "medium",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: OpenAI reasoning: on, minimal 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "reasoning_effort": "minimal",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: OpenAI reasoning: on, no effort 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: OpenAI reasoning: on, not a level 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "reasoning_effort": "extreme",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: OpenAI reasoning: on, xhigh 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "reasoning_effort": "xhigh",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: OpenAI samplers and reasoning together 1`] = `
+{
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "reasoning_effort": "high",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: OpenAI samplers: distinctive 1`] = `
+{
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: OpenAI samplers: none 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: OpenAI samplers: temperature only 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+  "temperature": 0.2,
+}
+`;
+
+exports[`request body server type: OpenAI samplers: unlimited length 1`] = `
+{
+  "max_completion_tokens": -1,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: case variant reasoning off with samplers 1`] = `
+{
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: case variant reasoning: no intent 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: case variant reasoning: off 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: case variant reasoning: off with effort 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: case variant reasoning: on, high 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: case variant reasoning: on, low 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: case variant reasoning: on, max 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: case variant reasoning: on, medium 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: case variant reasoning: on, minimal 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: case variant reasoning: on, no effort 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: case variant reasoning: on, not a level 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: case variant reasoning: on, xhigh 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: case variant samplers and reasoning together 1`] = `
+{
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: case variant samplers: distinctive 1`] = `
+{
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: case variant samplers: none 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: case variant samplers: temperature only 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+  "temperature": 0.2,
+}
+`;
+
+exports[`request body server type: case variant samplers: unlimited length 1`] = `
+{
+  "max_completion_tokens": -1,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: empty string reasoning off with samplers 1`] = `
+{
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: empty string reasoning: no intent 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: empty string reasoning: off 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: empty string reasoning: off with effort 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: empty string reasoning: on, high 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: empty string reasoning: on, low 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: empty string reasoning: on, max 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: empty string reasoning: on, medium 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: empty string reasoning: on, minimal 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: empty string reasoning: on, no effort 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: empty string reasoning: on, not a level 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: empty string reasoning: on, xhigh 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: empty string samplers and reasoning together 1`] = `
+{
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: empty string samplers: distinctive 1`] = `
+{
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: empty string samplers: none 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: empty string samplers: temperature only 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+  "temperature": 0.2,
+}
+`;
+
+exports[`request body server type: empty string samplers: unlimited length 1`] = `
+{
+  "max_completion_tokens": -1,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: free string reasoning off with samplers 1`] = `
+{
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: free string reasoning: no intent 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: free string reasoning: off 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: free string reasoning: off with effort 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: free string reasoning: on, high 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: free string reasoning: on, low 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: free string reasoning: on, max 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: free string reasoning: on, medium 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: free string reasoning: on, minimal 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: free string reasoning: on, no effort 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: free string reasoning: on, not a level 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: free string reasoning: on, xhigh 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: free string samplers and reasoning together 1`] = `
+{
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: free string samplers: distinctive 1`] = `
+{
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: free string samplers: none 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: free string samplers: temperature only 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+  "temperature": 0.2,
+}
+`;
+
+exports[`request body server type: free string samplers: unlimited length 1`] = `
+{
+  "max_completion_tokens": -1,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: llama.cpp reasoning off with samplers 1`] = `
+{
+  "chat_template_kwargs": {
+    "enable_thinking": false,
+  },
+  "frequency_penalty": 0.41,
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "min_p": 0.11,
+  "mirostat": 2,
+  "mirostat_eta": 0.21,
+  "mirostat_tau": 4.1,
+  "model": "m",
+  "presence_penalty": 0.51,
+  "reasoning_format": "auto",
+  "repeat_last_n": 41,
+  "repeat_penalty": 1.11,
+  "seed": 12345,
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_k": 11,
+  "top_p": 0.77,
+  "typical_p": 0.91,
+  "xtc_probability": 0.21,
+  "xtc_threshold": 0.31,
+}
+`;
+
+exports[`request body server type: llama.cpp reasoning: no intent 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: llama.cpp reasoning: off 1`] = `
+{
+  "chat_template_kwargs": {
+    "enable_thinking": false,
+  },
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "reasoning_format": "auto",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: llama.cpp reasoning: off with effort 1`] = `
+{
+  "chat_template_kwargs": {
+    "enable_thinking": false,
+  },
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "reasoning_format": "auto",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: llama.cpp reasoning: on, high 1`] = `
+{
+  "chat_template_kwargs": {
+    "reasoning_effort": "high",
+  },
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "reasoning_budget_tokens": 8192,
+  "reasoning_format": "auto",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: llama.cpp reasoning: on, low 1`] = `
+{
+  "chat_template_kwargs": {
+    "reasoning_effort": "low",
+  },
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "reasoning_budget_tokens": 512,
+  "reasoning_format": "auto",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: llama.cpp reasoning: on, max 1`] = `
+{
+  "chat_template_kwargs": {
+    "reasoning_effort": "max",
+  },
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "reasoning_budget_tokens": -1,
+  "reasoning_format": "auto",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: llama.cpp reasoning: on, medium 1`] = `
+{
+  "chat_template_kwargs": {
+    "reasoning_effort": "medium",
+  },
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "reasoning_budget_tokens": 2048,
+  "reasoning_format": "auto",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: llama.cpp reasoning: on, minimal 1`] = `
+{
+  "chat_template_kwargs": {
+    "reasoning_effort": "minimal",
+  },
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "reasoning_budget_tokens": 256,
+  "reasoning_format": "auto",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: llama.cpp reasoning: on, no effort 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "reasoning_format": "auto",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: llama.cpp reasoning: on, not a level 1`] = `
+{
+  "chat_template_kwargs": {
+    "reasoning_effort": "extreme",
+  },
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "reasoning_budget_tokens": -1,
+  "reasoning_format": "auto",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: llama.cpp reasoning: on, xhigh 1`] = `
+{
+  "chat_template_kwargs": {
+    "reasoning_effort": "xhigh",
+  },
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "reasoning_budget_tokens": 16384,
+  "reasoning_format": "auto",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: llama.cpp samplers and reasoning together 1`] = `
+{
+  "chat_template_kwargs": {
+    "reasoning_effort": "high",
+  },
+  "frequency_penalty": 0.41,
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "min_p": 0.11,
+  "mirostat": 2,
+  "mirostat_eta": 0.21,
+  "mirostat_tau": 4.1,
+  "model": "m",
+  "presence_penalty": 0.51,
+  "reasoning_budget_tokens": 8192,
+  "reasoning_format": "auto",
+  "repeat_last_n": 41,
+  "repeat_penalty": 1.11,
+  "seed": 12345,
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_k": 11,
+  "top_p": 0.77,
+  "typical_p": 0.91,
+  "xtc_probability": 0.21,
+  "xtc_threshold": 0.31,
+}
+`;
+
+exports[`request body server type: llama.cpp samplers: distinctive 1`] = `
+{
+  "frequency_penalty": 0.41,
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "min_p": 0.11,
+  "mirostat": 2,
+  "mirostat_eta": 0.21,
+  "mirostat_tau": 4.1,
+  "model": "m",
+  "presence_penalty": 0.51,
+  "repeat_last_n": 41,
+  "repeat_penalty": 1.11,
+  "seed": 12345,
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_k": 11,
+  "top_p": 0.77,
+  "typical_p": 0.91,
+  "xtc_probability": 0.21,
+  "xtc_threshold": 0.31,
+}
+`;
+
+exports[`request body server type: llama.cpp samplers: none 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: llama.cpp samplers: temperature only 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+  "temperature": 0.2,
+}
+`;
+
+exports[`request body server type: llama.cpp samplers: unlimited length 1`] = `
+{
+  "max_completion_tokens": -1,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+  "top_k": 40,
+}
+`;
+
+exports[`request body server type: undefined reasoning off with samplers 1`] = `
+{
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: undefined reasoning: no intent 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: undefined reasoning: off 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: undefined reasoning: off with effort 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: undefined reasoning: on, high 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: undefined reasoning: on, low 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: undefined reasoning: on, max 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: undefined reasoning: on, medium 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: undefined reasoning: on, minimal 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: undefined reasoning: on, no effort 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: undefined reasoning: on, not a level 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: undefined reasoning: on, xhigh 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: undefined samplers and reasoning together 1`] = `
+{
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: undefined samplers: distinctive 1`] = `
+{
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: undefined samplers: none 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: undefined samplers: temperature only 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+  "temperature": 0.2,
+}
+`;
+
+exports[`request body server type: undefined samplers: unlimited length 1`] = `
+{
+  "max_completion_tokens": -1,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: unknown reasoning off with samplers 1`] = `
+{
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: unknown reasoning: no intent 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: unknown reasoning: off 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: unknown reasoning: off with effort 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: unknown reasoning: on, high 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: unknown reasoning: on, low 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: unknown reasoning: on, max 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: unknown reasoning: on, medium 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: unknown reasoning: on, minimal 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: unknown reasoning: on, no effort 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: unknown reasoning: on, not a level 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: unknown reasoning: on, xhigh 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: unknown samplers and reasoning together 1`] = `
+{
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: unknown samplers: distinctive 1`] = `
+{
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: unknown samplers: none 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: unknown samplers: temperature only 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+  "temperature": 0.2,
+}
+`;
+
+exports[`request body server type: unknown samplers: unlimited length 1`] = `
+{
+  "max_completion_tokens": -1,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: vLLM reasoning off with samplers 1`] = `
+{
+  "chat_template_kwargs": {
+    "enable_thinking": false,
+  },
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: vLLM reasoning: no intent 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: vLLM reasoning: off 1`] = `
+{
+  "chat_template_kwargs": {
+    "enable_thinking": false,
+  },
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: vLLM reasoning: off with effort 1`] = `
+{
+  "chat_template_kwargs": {
+    "enable_thinking": false,
+  },
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: vLLM reasoning: on, high 1`] = `
+{
+  "chat_template_kwargs": {
+    "reasoning_effort": "high",
+  },
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: vLLM reasoning: on, low 1`] = `
+{
+  "chat_template_kwargs": {
+    "reasoning_effort": "low",
+  },
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: vLLM reasoning: on, max 1`] = `
+{
+  "chat_template_kwargs": {
+    "reasoning_effort": "max",
+  },
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: vLLM reasoning: on, medium 1`] = `
+{
+  "chat_template_kwargs": {
+    "reasoning_effort": "medium",
+  },
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: vLLM reasoning: on, minimal 1`] = `
+{
+  "chat_template_kwargs": {
+    "reasoning_effort": "minimal",
+  },
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: vLLM reasoning: on, no effort 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: vLLM reasoning: on, not a level 1`] = `
+{
+  "chat_template_kwargs": {
+    "reasoning_effort": "extreme",
+  },
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: vLLM reasoning: on, xhigh 1`] = `
+{
+  "chat_template_kwargs": {
+    "reasoning_effort": "xhigh",
+  },
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: vLLM samplers and reasoning together 1`] = `
+{
+  "chat_template_kwargs": {
+    "reasoning_effort": "high",
+  },
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: vLLM samplers: distinctive 1`] = `
+{
+  "max_completion_tokens": 256,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stop": [
+    "</s>",
+  ],
+  "stream": true,
+  "temperature": 0.33,
+  "top_p": 0.77,
+}
+`;
+
+exports[`request body server type: vLLM samplers: none 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`request body server type: vLLM samplers: temperature only 1`] = `
+{
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+  "temperature": 0.2,
+}
+`;
+
+exports[`request body server type: vLLM samplers: unlimited length 1`] = `
+{
+  "max_completion_tokens": -1,
+  "messages": [
+    {
+      "content": "Hi",
+      "role": "user",
+    },
+  ],
+  "model": "m",
+  "stream": true,
+}
+`;
+
+exports[`response reading server type: LM Studio cache reuse timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": 31,
+    "predicted_ms": 12.9,
+    "predicted_n": 3,
+    "predicted_per_second": 232.5581395348837,
+    "predicted_per_token_ms": 4.3,
+    "prompt_ms": 6.454,
+    "prompt_n": 1,
+    "prompt_per_second": 154.94267121165169,
+    "prompt_per_token_ms": 6.454,
+  },
+  "tokens_evaluated": 32,
+  "tokens_predicted": 3,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: LM Studio captured finish chunk 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": 15,
+    "predicted_ms": 35.222,
+    "predicted_n": 6,
+    "predicted_per_second": 170.34807790585427,
+    "predicted_per_token_ms": 5.870333333333334,
+    "prompt_ms": 7.88,
+    "prompt_n": 1,
+    "prompt_per_second": 126.90355329949239,
+    "prompt_per_token_ms": 7.88,
+  },
+  "tokens_evaluated": 16,
+  "tokens_predicted": 6,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: LM Studio length stop 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_limit": 1,
+  "timings": undefined,
+  "tokens_evaluated": undefined,
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: LM Studio malformed timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": "15",
+    "predicted_ms": 35.222,
+    "predicted_n": null,
+    "predicted_per_second": null,
+    "predicted_per_token_ms": 5.870333333333334,
+    "prompt_ms": 7.88,
+    "prompt_n": 1,
+    "prompt_per_second": "NaN",
+    "prompt_per_token_ms": 7.88,
+  },
+  "tokens_evaluated": "115",
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: LM Studio no timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": undefined,
+  "tokens_evaluated": undefined,
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: Ollama cache reuse timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": 31,
+    "predicted_ms": 12.9,
+    "predicted_n": 3,
+    "predicted_per_second": 232.5581395348837,
+    "predicted_per_token_ms": 4.3,
+    "prompt_ms": 6.454,
+    "prompt_n": 1,
+    "prompt_per_second": 154.94267121165169,
+    "prompt_per_token_ms": 6.454,
+  },
+  "tokens_evaluated": 32,
+  "tokens_predicted": 3,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: Ollama captured finish chunk 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": 15,
+    "predicted_ms": 35.222,
+    "predicted_n": 6,
+    "predicted_per_second": 170.34807790585427,
+    "predicted_per_token_ms": 5.870333333333334,
+    "prompt_ms": 7.88,
+    "prompt_n": 1,
+    "prompt_per_second": 126.90355329949239,
+    "prompt_per_token_ms": 7.88,
+  },
+  "tokens_evaluated": 16,
+  "tokens_predicted": 6,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: Ollama length stop 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_limit": 1,
+  "timings": undefined,
+  "tokens_evaluated": undefined,
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: Ollama malformed timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": "15",
+    "predicted_ms": 35.222,
+    "predicted_n": null,
+    "predicted_per_second": null,
+    "predicted_per_token_ms": 5.870333333333334,
+    "prompt_ms": 7.88,
+    "prompt_n": 1,
+    "prompt_per_second": "NaN",
+    "prompt_per_token_ms": 7.88,
+  },
+  "tokens_evaluated": "115",
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: Ollama no timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": undefined,
+  "tokens_evaluated": undefined,
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: OpenAI cache reuse timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": 31,
+    "predicted_ms": 12.9,
+    "predicted_n": 3,
+    "predicted_per_second": 232.5581395348837,
+    "predicted_per_token_ms": 4.3,
+    "prompt_ms": 6.454,
+    "prompt_n": 1,
+    "prompt_per_second": 154.94267121165169,
+    "prompt_per_token_ms": 6.454,
+  },
+  "tokens_evaluated": 32,
+  "tokens_predicted": 3,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: OpenAI captured finish chunk 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": 15,
+    "predicted_ms": 35.222,
+    "predicted_n": 6,
+    "predicted_per_second": 170.34807790585427,
+    "predicted_per_token_ms": 5.870333333333334,
+    "prompt_ms": 7.88,
+    "prompt_n": 1,
+    "prompt_per_second": 126.90355329949239,
+    "prompt_per_token_ms": 7.88,
+  },
+  "tokens_evaluated": 16,
+  "tokens_predicted": 6,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: OpenAI length stop 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_limit": 1,
+  "timings": undefined,
+  "tokens_evaluated": undefined,
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: OpenAI malformed timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": "15",
+    "predicted_ms": 35.222,
+    "predicted_n": null,
+    "predicted_per_second": null,
+    "predicted_per_token_ms": 5.870333333333334,
+    "prompt_ms": 7.88,
+    "prompt_n": 1,
+    "prompt_per_second": "NaN",
+    "prompt_per_token_ms": 7.88,
+  },
+  "tokens_evaluated": "115",
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: OpenAI no timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": undefined,
+  "tokens_evaluated": undefined,
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: case variant cache reuse timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": 31,
+    "predicted_ms": 12.9,
+    "predicted_n": 3,
+    "predicted_per_second": 232.5581395348837,
+    "predicted_per_token_ms": 4.3,
+    "prompt_ms": 6.454,
+    "prompt_n": 1,
+    "prompt_per_second": 154.94267121165169,
+    "prompt_per_token_ms": 6.454,
+  },
+  "tokens_evaluated": 32,
+  "tokens_predicted": 3,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: case variant captured finish chunk 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": 15,
+    "predicted_ms": 35.222,
+    "predicted_n": 6,
+    "predicted_per_second": 170.34807790585427,
+    "predicted_per_token_ms": 5.870333333333334,
+    "prompt_ms": 7.88,
+    "prompt_n": 1,
+    "prompt_per_second": 126.90355329949239,
+    "prompt_per_token_ms": 7.88,
+  },
+  "tokens_evaluated": 16,
+  "tokens_predicted": 6,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: case variant length stop 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_limit": 1,
+  "timings": undefined,
+  "tokens_evaluated": undefined,
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: case variant malformed timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": "15",
+    "predicted_ms": 35.222,
+    "predicted_n": null,
+    "predicted_per_second": null,
+    "predicted_per_token_ms": 5.870333333333334,
+    "prompt_ms": 7.88,
+    "prompt_n": 1,
+    "prompt_per_second": "NaN",
+    "prompt_per_token_ms": 7.88,
+  },
+  "tokens_evaluated": "115",
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: case variant no timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": undefined,
+  "tokens_evaluated": undefined,
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: empty string cache reuse timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": 31,
+    "predicted_ms": 12.9,
+    "predicted_n": 3,
+    "predicted_per_second": 232.5581395348837,
+    "predicted_per_token_ms": 4.3,
+    "prompt_ms": 6.454,
+    "prompt_n": 1,
+    "prompt_per_second": 154.94267121165169,
+    "prompt_per_token_ms": 6.454,
+  },
+  "tokens_evaluated": 32,
+  "tokens_predicted": 3,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: empty string captured finish chunk 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": 15,
+    "predicted_ms": 35.222,
+    "predicted_n": 6,
+    "predicted_per_second": 170.34807790585427,
+    "predicted_per_token_ms": 5.870333333333334,
+    "prompt_ms": 7.88,
+    "prompt_n": 1,
+    "prompt_per_second": 126.90355329949239,
+    "prompt_per_token_ms": 7.88,
+  },
+  "tokens_evaluated": 16,
+  "tokens_predicted": 6,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: empty string length stop 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_limit": 1,
+  "timings": undefined,
+  "tokens_evaluated": undefined,
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: empty string malformed timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": "15",
+    "predicted_ms": 35.222,
+    "predicted_n": null,
+    "predicted_per_second": null,
+    "predicted_per_token_ms": 5.870333333333334,
+    "prompt_ms": 7.88,
+    "prompt_n": 1,
+    "prompt_per_second": "NaN",
+    "prompt_per_token_ms": 7.88,
+  },
+  "tokens_evaluated": "115",
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: empty string no timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": undefined,
+  "tokens_evaluated": undefined,
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: free string cache reuse timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": 31,
+    "predicted_ms": 12.9,
+    "predicted_n": 3,
+    "predicted_per_second": 232.5581395348837,
+    "predicted_per_token_ms": 4.3,
+    "prompt_ms": 6.454,
+    "prompt_n": 1,
+    "prompt_per_second": 154.94267121165169,
+    "prompt_per_token_ms": 6.454,
+  },
+  "tokens_evaluated": 32,
+  "tokens_predicted": 3,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: free string captured finish chunk 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": 15,
+    "predicted_ms": 35.222,
+    "predicted_n": 6,
+    "predicted_per_second": 170.34807790585427,
+    "predicted_per_token_ms": 5.870333333333334,
+    "prompt_ms": 7.88,
+    "prompt_n": 1,
+    "prompt_per_second": 126.90355329949239,
+    "prompt_per_token_ms": 7.88,
+  },
+  "tokens_evaluated": 16,
+  "tokens_predicted": 6,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: free string length stop 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_limit": 1,
+  "timings": undefined,
+  "tokens_evaluated": undefined,
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: free string malformed timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": "15",
+    "predicted_ms": 35.222,
+    "predicted_n": null,
+    "predicted_per_second": null,
+    "predicted_per_token_ms": 5.870333333333334,
+    "prompt_ms": 7.88,
+    "prompt_n": 1,
+    "prompt_per_second": "NaN",
+    "prompt_per_token_ms": 7.88,
+  },
+  "tokens_evaluated": "115",
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: free string no timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": undefined,
+  "tokens_evaluated": undefined,
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: llama.cpp cache reuse timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": 31,
+    "predicted_ms": 12.9,
+    "predicted_n": 3,
+    "predicted_per_second": 232.5581395348837,
+    "predicted_per_token_ms": 4.3,
+    "prompt_ms": 6.454,
+    "prompt_n": 1,
+    "prompt_per_second": 154.94267121165169,
+    "prompt_per_token_ms": 6.454,
+  },
+  "tokens_evaluated": 32,
+  "tokens_predicted": 3,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: llama.cpp captured finish chunk 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": 15,
+    "predicted_ms": 35.222,
+    "predicted_n": 6,
+    "predicted_per_second": 170.34807790585427,
+    "predicted_per_token_ms": 5.870333333333334,
+    "prompt_ms": 7.88,
+    "prompt_n": 1,
+    "prompt_per_second": 126.90355329949239,
+    "prompt_per_token_ms": 7.88,
+  },
+  "tokens_evaluated": 16,
+  "tokens_predicted": 6,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: llama.cpp length stop 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_limit": 1,
+  "timings": undefined,
+  "tokens_evaluated": undefined,
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: llama.cpp malformed timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": "15",
+    "predicted_ms": 35.222,
+    "predicted_n": null,
+    "predicted_per_second": null,
+    "predicted_per_token_ms": 5.870333333333334,
+    "prompt_ms": 7.88,
+    "prompt_n": 1,
+    "prompt_per_second": "NaN",
+    "prompt_per_token_ms": 7.88,
+  },
+  "tokens_evaluated": "115",
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: llama.cpp no timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": undefined,
+  "tokens_evaluated": undefined,
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: undefined cache reuse timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": 31,
+    "predicted_ms": 12.9,
+    "predicted_n": 3,
+    "predicted_per_second": 232.5581395348837,
+    "predicted_per_token_ms": 4.3,
+    "prompt_ms": 6.454,
+    "prompt_n": 1,
+    "prompt_per_second": 154.94267121165169,
+    "prompt_per_token_ms": 6.454,
+  },
+  "tokens_evaluated": 32,
+  "tokens_predicted": 3,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: undefined captured finish chunk 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": 15,
+    "predicted_ms": 35.222,
+    "predicted_n": 6,
+    "predicted_per_second": 170.34807790585427,
+    "predicted_per_token_ms": 5.870333333333334,
+    "prompt_ms": 7.88,
+    "prompt_n": 1,
+    "prompt_per_second": 126.90355329949239,
+    "prompt_per_token_ms": 7.88,
+  },
+  "tokens_evaluated": 16,
+  "tokens_predicted": 6,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: undefined length stop 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_limit": 1,
+  "timings": undefined,
+  "tokens_evaluated": undefined,
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: undefined malformed timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": "15",
+    "predicted_ms": 35.222,
+    "predicted_n": null,
+    "predicted_per_second": null,
+    "predicted_per_token_ms": 5.870333333333334,
+    "prompt_ms": 7.88,
+    "prompt_n": 1,
+    "prompt_per_second": "NaN",
+    "prompt_per_token_ms": 7.88,
+  },
+  "tokens_evaluated": "115",
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: undefined no timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": undefined,
+  "tokens_evaluated": undefined,
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: unknown cache reuse timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": 31,
+    "predicted_ms": 12.9,
+    "predicted_n": 3,
+    "predicted_per_second": 232.5581395348837,
+    "predicted_per_token_ms": 4.3,
+    "prompt_ms": 6.454,
+    "prompt_n": 1,
+    "prompt_per_second": 154.94267121165169,
+    "prompt_per_token_ms": 6.454,
+  },
+  "tokens_evaluated": 32,
+  "tokens_predicted": 3,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: unknown captured finish chunk 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": 15,
+    "predicted_ms": 35.222,
+    "predicted_n": 6,
+    "predicted_per_second": 170.34807790585427,
+    "predicted_per_token_ms": 5.870333333333334,
+    "prompt_ms": 7.88,
+    "prompt_n": 1,
+    "prompt_per_second": 126.90355329949239,
+    "prompt_per_token_ms": 7.88,
+  },
+  "tokens_evaluated": 16,
+  "tokens_predicted": 6,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: unknown length stop 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_limit": 1,
+  "timings": undefined,
+  "tokens_evaluated": undefined,
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: unknown malformed timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": "15",
+    "predicted_ms": 35.222,
+    "predicted_n": null,
+    "predicted_per_second": null,
+    "predicted_per_token_ms": 5.870333333333334,
+    "prompt_ms": 7.88,
+    "prompt_n": 1,
+    "prompt_per_second": "NaN",
+    "prompt_per_token_ms": 7.88,
+  },
+  "tokens_evaluated": "115",
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: unknown no timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": undefined,
+  "tokens_evaluated": undefined,
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: vLLM cache reuse timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": 31,
+    "predicted_ms": 12.9,
+    "predicted_n": 3,
+    "predicted_per_second": 232.5581395348837,
+    "predicted_per_token_ms": 4.3,
+    "prompt_ms": 6.454,
+    "prompt_n": 1,
+    "prompt_per_second": 154.94267121165169,
+    "prompt_per_token_ms": 6.454,
+  },
+  "tokens_evaluated": 32,
+  "tokens_predicted": 3,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: vLLM captured finish chunk 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": 15,
+    "predicted_ms": 35.222,
+    "predicted_n": 6,
+    "predicted_per_second": 170.34807790585427,
+    "predicted_per_token_ms": 5.870333333333334,
+    "prompt_ms": 7.88,
+    "prompt_n": 1,
+    "prompt_per_second": 126.90355329949239,
+    "prompt_per_token_ms": 7.88,
+  },
+  "tokens_evaluated": 16,
+  "tokens_predicted": 6,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: vLLM length stop 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_limit": 1,
+  "timings": undefined,
+  "tokens_evaluated": undefined,
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: vLLM malformed timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": {
+    "cache_n": "15",
+    "predicted_ms": 35.222,
+    "predicted_n": null,
+    "predicted_per_second": null,
+    "predicted_per_token_ms": 5.870333333333334,
+    "prompt_ms": 7.88,
+    "prompt_n": 1,
+    "prompt_per_second": "NaN",
+    "prompt_per_token_ms": 7.88,
+  },
+  "tokens_evaluated": "115",
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;
+
+exports[`response reading server type: vLLM no timings 1`] = `
+{
+  "reasoning_content": undefined,
+  "stopped_eos": true,
+  "timings": undefined,
+  "tokens_evaluated": undefined,
+  "tokens_predicted": 0,
+  "tool_calls": undefined,
+}
+`;

@@ -1016,6 +1016,26 @@ describe('ServerStore', () => {
 
     const flush = () => new Promise(r => setImmediate(r));
 
+    it.each([
+      ['llama.cpp', 1],
+      ['LM Studio', 0],
+      ['Ollama', 0],
+      ['OpenAI', 0],
+      ['vLLM', 0],
+      ['unknown', 0],
+      ['', 0],
+      [undefined, 0],
+      ['LLAMA.CPP', 0],
+    ])('probes /props for server type %j: %d call(s)', async (type, calls) => {
+      const id = addLlamaServer({serverType: type});
+      jest.clearAllMocks();
+      mockedFetchServerProps.mockResolvedValue(capsOnly({contextLength: 4096}));
+
+      await serverStore.fetchRemoteModelCaps(id, 'm');
+
+      expect(mockedFetchServerProps).toHaveBeenCalledTimes(calls);
+    });
+
     /** A probe held open until the test releases it. */
     const deferredProbe = () => {
       let settle: (v: unknown) => void = () => {};
