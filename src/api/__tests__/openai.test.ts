@@ -1267,6 +1267,33 @@ describe('streamChatCompletion', () => {
     expect(result.stopped_eos).toBe(true);
   });
 
+  it('keeps the timings of the last event that carried them', async () => {
+    const resultPromise = streamChatCompletion(
+      {
+        samplers: {},
+        messages: [{role: 'user', content: 'Hi'}],
+        model: 'test-model',
+      },
+      endpointFor(),
+    );
+
+    const xhr = MockXHR.instances[0];
+    xhr.simulateHeaders(200);
+    xhr.simulateProgress(
+      'data: {"choices":[{"delta":{"content":"Hi"},"finish_reason":null}],"timings":{"prompt_n":1,"predicted_n":1}}\n\n',
+    );
+    xhr.simulateProgress(
+      'data: {"choices":[{"delta":{},"finish_reason":"stop"}],"timings":{"prompt_n":9,"predicted_n":4}}\n\n',
+    );
+    xhr.simulateProgress('data: [DONE]\n\n');
+    xhr.simulateLoad();
+
+    const result = await resultPromise;
+    expect(result.timings).toEqual({prompt_n: 9, predicted_n: 4});
+    expect(result.tokens_evaluated).toBe(9);
+    expect(result.tokens_predicted).toBe(4);
+  });
+
   it('reconciles token counts from timings prompt_n/predicted_n', async () => {
     const resultPromise = streamChatCompletion(
       {

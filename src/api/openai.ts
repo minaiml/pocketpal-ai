@@ -15,7 +15,7 @@ import {
 } from './http';
 import {encodeMessagesForRemote, hasLocalImageAttachment} from './remoteImages';
 import {dialectFor} from './servers';
-import type {RemoteEndpoint} from './servers/dialect';
+import type {FinishRead, RemoteEndpoint} from './servers/dialect';
 import type {Samplers} from '../utils/samplerParams';
 
 /** Chat message type compatible with OpenAI API format */
@@ -327,7 +327,7 @@ export async function streamChatCompletion(
     let tokensPredicted = 0;
     let lastProcessedLength = 0;
     let settled = false;
-    let serverTimings: CompletionResult['timings'] | undefined;
+    let serverFinish: FinishRead | undefined;
     // OpenAI streams partial tool_calls across chunks, indexed by
     // `delta.tool_calls[i].index`. Rebuild the per-call shape here so
     // the final result carries fully formed tool_calls and the streaming
@@ -415,9 +415,11 @@ export async function streamChatCompletion(
           finishReason = choice.finish_reason;
         }
 
-        // Extract server-side timings (llama.cpp includes these at event level)
-        if (parsed.timings) {
-          serverTimings = parsed.timings;
+        // The dialect reads the finish facts; the latest chunk that carries
+        // timings wins, whatever its finish_reason.
+        const finish = dialect.readFinish(parsed);
+        if (finish.timings) {
+          serverFinish = finish;
         }
 
         // When tool_calls deltas are present, forward a token event so
@@ -552,8 +554,9 @@ export async function streamChatCompletion(
         if (choice.finish_reason) {
           finishReason = choice.finish_reason;
         }
-        if (parsed.timings) {
-          serverTimings = parsed.timings;
+        const finish = dialect.readFinish(parsed);
+        if (finish.timings) {
+          serverFinish = finish;
         }
         if (Array.isArray(delta.tool_calls) && delta.tool_calls.length > 0) {
           applyToolCallDelta(toolCallAcc, delta.tool_calls);
@@ -577,29 +580,15 @@ export async function streamChatCompletion(
         return;
       }
 
-      // The server evaluates only the prompt tokens it did not already hold in
-      // its KV cache, so the prompt total is `prompt_n + cache_n`. The two keys
-      // are guarded separately: a build too old to report reuse omits `cache_n`
-      // entirely, while a cold prompt on a newer one reports 0, and those are
-      // different facts.
-      const promptTokens =
-        serverTimings &&
-        (serverTimings.prompt_n !== undefined ||
-          serverTimings.cache_n !== undefined)
-          ? (serverTimings.prompt_n ?? 0) + (serverTimings.cache_n ?? 0)
-          : undefined;
-
       const result: CompletionResult = {
         text: fullContent,
         content: fullContent,
         reasoning_content: fullReasoningContent || undefined,
         tool_calls: finalToolCalls,
-        // llama.cpp reports authoritative token counts on `timings`; the server
-        // count wins over the per-event tally. Each field is guarded on its own
-        // key so a server that emits only one does not zero the other.
-        tokens_evaluated: promptTokens,
-        tokens_predicted: serverTimings?.predicted_n ?? tokensPredicted,
-        timings: serverTimings,
+        // The server's own counts win over the per-event tally.
+        tokens_evaluated: serverFinish?.tokensEvaluated,
+        tokens_predicted: serverFinish?.tokensPredicted ?? tokensPredicted,
+        timings: serverFinish?.timings,
       };
 
       switch (finishReason) {
