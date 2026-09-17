@@ -321,6 +321,29 @@ describe('ServerStore', () => {
       expect(serverStore.serverModels.has(id)).toBe(true);
     });
 
+    it('keeps caps when a row with no stored type is saved back as unknown', () => {
+      const id = serverStore.addServer({
+        name: 'typeless',
+        url: 'http://localhost:8080',
+      });
+      runInAction(() => {
+        serverStore.remoteCaps[`${id}/m`] = {contextLength: 8192};
+        serverStore.serverModels.set(id, [
+          {id: 'm', object: 'model', owned_by: 'system'},
+        ]);
+      });
+
+      // The server sheet always sends serverType and reads an absent one as
+      // 'unknown', so this is what pressing Save with nothing changed sends.
+      serverStore.updateServer(id, {
+        url: 'http://localhost:8080',
+        serverType: 'unknown',
+      });
+
+      expect(serverStore.remoteCaps[`${id}/m`]).toBeDefined();
+      expect(serverStore.serverModels.has(id)).toBe(true);
+    });
+
     it('keeps caps when a legacy type is saved back as unknown', () => {
       const id = serverStore.addServer({
         name: 'legacy',

@@ -234,10 +234,13 @@ class ServerStore {
       updates.serverType !== undefined
         ? {...updates, serverType: toServerType(updates.serverType)}
         : updates;
+    // Both sides of the type comparison are normalised: a legacy row whose key
+    // is absent already means 'unknown', so saving 'unknown' over it changes
+    // nothing and must not discard what the server reported.
     const invalidatesDiscovery =
       (normalised.url !== undefined && normalised.url !== server.url) ||
       (normalised.serverType !== undefined &&
-        normalised.serverType !== server.serverType);
+        normalised.serverType !== toServerType(server.serverType));
 
     Object.assign(server, normalised);
 
