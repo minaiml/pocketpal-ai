@@ -7,8 +7,8 @@ import {
   streamChatCompletion,
   buildReasoningPayload,
   buildSamplerPayload,
-  __clearRemoteImageCache,
 } from '../openai';
+import {__clearRemoteImageCache} from '../remoteImages';
 import {
   directTextModelsBody,
   directVisionModelsBody,
