@@ -5,8 +5,23 @@ import {
   SamplerDefaults,
 } from '../../utils/types';
 import {finiteNumber} from '../../utils/finite';
+import type {SamplerParam} from '../../utils/samplerParams';
 import {buildHeaders, normalizeUrl, resolveTimeout} from '../http';
-import {PARAM_WIRE_NAME, SamplerParam} from '../openai';
+import {llamaCpp} from '../servers/llamaCpp';
+
+/**
+ * The name each control is reported under, derived from the names it is sent
+ * under so the two cannot drift. `n_predict` is the one entry whose read name
+ * is not its send name: it is reported under `n_predict` and sent as
+ * `max_completion_tokens`.
+ *
+ * Total over `SamplerParam`, so a control added to the vocabulary without a
+ * llama.cpp name fails to compile here.
+ */
+const PROPS_READ_NAMES = {
+  ...llamaCpp.sendNames,
+  n_predict: 'n_predict',
+} satisfies Record<SamplerParam, string>;
 
 // A fire-and-forget probe must neither inherit the 30 s connection default nor
 // an arbitrarily large user-set timeout.
@@ -32,11 +47,11 @@ const definiteBoolean = (value: unknown): boolean | undefined =>
  */
 function readSamplerDefaults(generationSettings: any): SamplerDefaults {
   const defaults: SamplerDefaults = {};
-  for (const param of Object.keys(PARAM_WIRE_NAME) as SamplerParam[]) {
+  for (const param of Object.keys(PROPS_READ_NAMES) as SamplerParam[]) {
     if (param === 'seed') {
       continue;
     }
-    const wireName = PARAM_WIRE_NAME[param];
+    const wireName = PROPS_READ_NAMES[param];
     const value = finiteNumber(
       generationSettings?.params?.[wireName] ?? generationSettings?.[wireName],
     );
