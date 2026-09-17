@@ -240,7 +240,7 @@ describe('bodyExtras (sampler forwarding)', () => {
     expect(payload.presence_penalty).toBe(0.51);
   });
 
-  it('forwards the allow-listed samplers and nothing else', () => {
+  it('forwards exactly its own send map and nothing else', () => {
     expect(samplerBody('llama.cpp', settings)).toEqual({
       ...BASE_KEYS,
       n_probs: 3,
@@ -271,7 +271,7 @@ describe('bodyExtras (sampler forwarding)', () => {
     ).toEqual({mirostat: 0});
   });
 
-  it('sends only the base three to a server type with no send map of its own', () => {
+  it('sends only the base three to a type that does not override the send map', () => {
     for (const serverType of [
       'vLLM',
       'Ollama',

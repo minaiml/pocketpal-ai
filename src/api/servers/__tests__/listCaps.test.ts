@@ -18,11 +18,12 @@ const routerRow = (id: string): RemoteModelInfo => {
 const VISION = 'gemma-4-e2b';
 
 describe('deriveListCaps', () => {
-  describe('the serverType gate', () => {
+  describe('a dialect with no row parser', () => {
     it.each(['Ollama', 'LM Studio', 'OpenAI', 'vLLM', undefined])(
       'reads nothing off a %s server',
       serverType => {
-        // The fully-populated router row: everything to parse, nothing parsed.
+        // The fully-populated router row: everything to parse, and the base
+        // dialect's readModelEntry parses none of it.
         expect(deriveListCaps(routerRow(VISION), serverType)).toEqual({
           tier: 'list',
         });

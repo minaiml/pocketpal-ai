@@ -1,8 +1,10 @@
 /**
- * Pins what the remote request path does today, across every server type, so a
- * restructure can be checked against it. Only the adapters in the first block
- * may change when the structure does; a change anywhere below is a behaviour
- * change and has to be intended.
+ * Pins the remote request path across every server type: the body each type is
+ * sent, what is read back off its finish chunk, what `/props` parses and what a
+ * models-list row yields. The adapters below are the seam — they name the
+ * symbols the path is reached through, so moving the code moves them. Every
+ * snapshot beyond that block is behaviour, and a snapshot that moves is a
+ * behaviour change someone intended.
  */
 import {OpenAICompletionEngine} from '../completionEngines';
 import {fetchServerProps} from '../llamaServer/props';
@@ -20,7 +22,7 @@ import {
   routerModelsBody,
 } from '../../../jest/fixtures/remoteModelList';
 
-// ---- Adapters: the only part a restructure is allowed to edit. ----
+// ---- Adapters: where this suite reaches the path. ----
 
 const engineFor = (serverType: unknown) =>
   new OpenAICompletionEngine({

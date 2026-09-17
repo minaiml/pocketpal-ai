@@ -129,10 +129,9 @@ module.exports = {
       },
     },
     {
-      // The agent runner module is the producer of AgentEvents and does not
-      // consume the store, so the setter ban never fired here; it was turned
-      // off for clarity. It is back on, because turning a shared rule off is
-      // also how a new ban silently skips a folder.
+      // An override never inherits the base list, so this one names the shared
+      // bans explicitly rather than switching the rule off: an `off` here is
+      // how the next ban would silently skip this folder.
       files: ['src/services/agent/**'],
       rules: {
         'no-restricted-syntax': ['error', AGENT_SETTER, ...SERVER_TYPE_LITERAL],

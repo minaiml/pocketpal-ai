@@ -831,8 +831,7 @@ describe('ChatScreen on/off toggle → reasoning carrier (remote)', () => {
 
   // Toggling thinking OFF on a remote effort-unknown model must populate the
   // reasoning carrier (enabled:false), so the dialect produces the per-type OFF
-  // wire shape. Pre-R1 the toggle set only enable_thinking, leaving
-  // params.reasoning undefined → the dialect emitted no reasoning key.
+  // wire shape.
   it('off toggle yields reasoning.enabled false reaching the dialect', async () => {
     useRemoteEffortUnknownModel();
     const {getByLabelText} = render(<ChatScreen />, {withNavigation: true});

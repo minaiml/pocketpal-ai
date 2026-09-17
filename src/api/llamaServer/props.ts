@@ -86,7 +86,8 @@ function readChatTemplateCaps(
  * Pure: parses the response into the three tiers and never throws — a timeout,
  * non-2xx, or malformed body resolves every tier to unknown so the caller's
  * models path and connection are never affected. `/props` is
- * llama.cpp-specific; callers gate on serverType before invoking.
+ * llama.cpp-specific; a caller asks `dialectFor(type).discovery.hasProps`
+ * before invoking, never the type itself.
  *
  * `modelId` scopes the request (`?model=<id>`). A multi-model router answers
  * the bare form with a placeholder (`role: 'router'`, `model_path: 'none'`,

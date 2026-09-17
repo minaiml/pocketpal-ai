@@ -1,7 +1,9 @@
 /**
- * User-selectable server types. Gates the per-server reasoning wire payload
- * (see api/servers/ — one dialect per type). detectServerType seeds the value
- * best-effort; the user's selection wins.
+ * User-selectable server types. Selects the server's dialect (`api/servers/`,
+ * one per type): its sampler send names, its request body beyond the
+ * transport's own keys, its final-chunk reading, its models-list row parsing
+ * and its discovery flags. detectServerType seeds the value best-effort; the
+ * user's selection wins.
  */
 export const SERVER_TYPE_OPTIONS = [
   'llama.cpp',
