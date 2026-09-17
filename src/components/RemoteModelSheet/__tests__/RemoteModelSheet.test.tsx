@@ -2,11 +2,8 @@ import React from 'react';
 import {render, fireEvent, waitFor} from '../../../../jest/test-utils';
 import {RemoteModelSheet} from '../RemoteModelSheet';
 import {serverStore} from '../../../store';
-import {
-  detectServerType,
-  fetchModels,
-  fetchModelsWithHeaders,
-} from '../../../api/openai';
+import {fetchModels, fetchModelsWithHeaders} from '../../../api/openai';
+import {detectServerType} from '../../../api/servers/detect';
 import {routerModelsBody} from '../../../../jest/fixtures/remoteModelList';
 
 const mockedFetchModels = fetchModels as jest.Mock;
@@ -43,6 +40,9 @@ jest.mock('../../../api/openai', () => ({
   fetchModelsWithHeaders: jest
     .fn()
     .mockResolvedValue({models: [], headers: {}}),
+}));
+
+jest.mock('../../../api/servers/detect', () => ({
   detectServerType: jest.fn().mockResolvedValue(''),
 }));
 

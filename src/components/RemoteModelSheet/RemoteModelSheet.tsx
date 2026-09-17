@@ -32,11 +32,8 @@ import {
   seedServerType,
 } from '../../utils/serverTypes';
 import {RemoteModelInfo, ServerConfig} from '../../utils/types';
-import {
-  fetchModels,
-  fetchModelsWithHeaders,
-  detectServerType,
-} from '../../api/openai';
+import {fetchModels, fetchModelsWithHeaders} from '../../api/openai';
+import {detectServerType} from '../../api/servers/detect';
 import {deriveListCaps} from '../../utils/listCaps';
 import {t} from '../../locales';
 
