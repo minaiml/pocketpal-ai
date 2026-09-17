@@ -194,9 +194,6 @@ describe('OpenAICompletionEngine', () => {
         messages: [{role: 'user', content: 'Hi'}],
         model: 'test-model',
         samplers: {temperature: 0.8, top_p: 0.95, n_predict: 200},
-        temperature: 0.8,
-        top_p: 0.95,
-        max_tokens: 200,
         stop: ['</s>'],
         stream: true,
         reasoning: undefined,
@@ -300,7 +297,7 @@ describe('OpenAICompletionEngine', () => {
     } as any);
 
     expect(mockedStreamChat).toHaveBeenCalledWith(
-      expect.objectContaining({...samplers, samplers}),
+      expect.objectContaining({samplers}),
       ENDPOINT,
       expect.any(Object),
       undefined,
@@ -323,9 +320,7 @@ describe('OpenAICompletionEngine', () => {
       expect.objectContaining({
         messages: [{role: 'user', content: 'Hi'}],
         model: 'test-model',
-        temperature: undefined,
-        top_p: undefined,
-        max_tokens: undefined,
+        samplers: {},
         stop: undefined,
         stream: true,
       }),

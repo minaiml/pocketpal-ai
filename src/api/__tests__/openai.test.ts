@@ -3,9 +3,8 @@ import {
   fetchModelsWithHeaders,
   testConnection,
   streamChatCompletion,
-  buildReasoningPayload,
-  buildSamplerPayload,
 } from '../openai';
+import type {StreamChatParams} from '../openai';
 import {__clearRemoteImageCache} from '../remoteImages';
 import type {RemoteEndpoint} from '../servers/dialect';
 import {
@@ -14,8 +13,6 @@ import {
   routerModelsBody,
 } from '../../../jest/fixtures/remoteModelList';
 import {cacheReuseTimings} from '../../../jest/fixtures/llamaServerTimings';
-import {slotsAfterSamplerRequest} from '../../../jest/fixtures/llamaServerWire';
-import {EFFORT_LEVELS} from '../../utils/reasoningCapability';
 import {runInAction} from 'mobx';
 
 import {serverStore} from '../../store';
@@ -567,12 +564,9 @@ describe('streamChatCompletion', () => {
   it('sends correct request headers and body', async () => {
     const resultPromise = streamChatCompletion(
       {
-        samplers: {},
+        samplers: {temperature: 0.7, top_p: 0.9, n_predict: 100},
         messages: [{role: 'user', content: 'Hi'}],
         model: 'test-model',
-        temperature: 0.7,
-        top_p: 0.9,
-        max_tokens: 100,
         stop: ['</s>'],
       },
       endpointFor({apiKey: 'sk-key'}),
@@ -1909,125 +1903,6 @@ describe('streamChatCompletion', () => {
   });
 });
 
-describe('buildReasoningPayload (per-serverType gating)', () => {
-  it('returns empty when no reasoning intent', () => {
-    expect(buildReasoningPayload('llama.cpp', undefined)).toEqual({});
-  });
-
-  it('llama.cpp ON sends reasoning_format auto', () => {
-    expect(buildReasoningPayload('llama.cpp', {enabled: true})).toEqual({
-      reasoning_format: 'auto',
-    });
-  });
-
-  it('llama.cpp ON+effort sends reasoning_format auto + reasoning_effort', () => {
-    expect(
-      buildReasoningPayload('llama.cpp', {enabled: true, effort: 'high'}),
-    ).toEqual({
-      reasoning_format: 'auto',
-      chat_template_kwargs: {reasoning_effort: 'high'},
-      reasoning_budget_tokens: 8192,
-    });
-  });
-
-  it('llama.cpp budgets rise with the effort level and uncap at max', () => {
-    const budgetFor = (effort: string) =>
-      buildReasoningPayload('llama.cpp', {enabled: true, effort})
-        .reasoning_budget_tokens;
-
-    expect(EFFORT_LEVELS.map(budgetFor)).toEqual([
-      256, 512, 2048, 8192, 16384, -1,
-    ]);
-  });
-
-  it('llama.cpp sends no budget when reasoning is on without an effort', () => {
-    const on = buildReasoningPayload('llama.cpp', {enabled: true});
-    expect(on).not.toHaveProperty('reasoning_budget_tokens');
-    const off = buildReasoningPayload('llama.cpp', {enabled: false});
-    expect(off).not.toHaveProperty('reasoning_budget_tokens');
-  });
-
-  it('sends no budget to any other server type', () => {
-    for (const serverType of [
-      'vLLM',
-      'LM Studio',
-      'Ollama',
-      'OpenAI',
-      undefined,
-    ]) {
-      expect(
-        buildReasoningPayload(serverType, {enabled: true, effort: 'high'}),
-      ).not.toHaveProperty('reasoning_budget_tokens');
-    }
-  });
-
-  it('llama.cpp OFF sends enable_thinking:false + reasoning_format auto', () => {
-    const off = buildReasoningPayload('llama.cpp', {enabled: false});
-    expect(off).toEqual({
-      reasoning_format: 'auto',
-      chat_template_kwargs: {enable_thinking: false},
-    });
-    // llama-server has no top-level reasoning_effort: it 200s and keeps
-    // thinking on, so enable_thinking is the only thing that turns it off.
-    expect(off).not.toHaveProperty('reasoning_effort');
-  });
-
-  it('LM Studio is on/off only — no graded effort', () => {
-    expect(buildReasoningPayload('LM Studio', {enabled: false})).toEqual({
-      chat_template_kwargs: {enable_thinking: false},
-    });
-    expect(buildReasoningPayload('LM Studio', {enabled: true})).toEqual({});
-    // Even when an effort is set, LM Studio never sends reasoning_effort.
-    const onEffort = buildReasoningPayload('LM Studio', {
-      enabled: true,
-      effort: 'high',
-    });
-    expect(onEffort).toEqual({});
-    expect(onEffort).not.toHaveProperty('reasoning_effort');
-  });
-
-  it('vLLM ON+effort sends chat_template_kwargs.reasoning_effort', () => {
-    expect(
-      buildReasoningPayload('vLLM', {enabled: true, effort: 'max'}),
-    ).toEqual({chat_template_kwargs: {reasoning_effort: 'max'}});
-    // ON without an effort sends nothing.
-    expect(buildReasoningPayload('vLLM', {enabled: true})).toEqual({});
-  });
-
-  it('vLLM OFF sends enable_thinking:false', () => {
-    expect(buildReasoningPayload('vLLM', {enabled: false})).toEqual({
-      chat_template_kwargs: {enable_thinking: false},
-    });
-  });
-
-  it('Ollama OFF sends only reasoning_effort none and never think:true', () => {
-    const off = buildReasoningPayload('Ollama', {enabled: false});
-    expect(off).toEqual({reasoning_effort: 'none'});
-    expect(off).not.toHaveProperty('think');
-    // ON sends nothing — never think:true, never a non-none effort.
-    const on = buildReasoningPayload('Ollama', {enabled: true, effort: 'high'});
-    expect(on).toEqual({});
-    expect(on).not.toHaveProperty('think');
-    expect(on).not.toHaveProperty('reasoning_effort');
-  });
-
-  it('OpenAI sends reasoning_effort only when effort is known', () => {
-    expect(
-      buildReasoningPayload('OpenAI', {enabled: true, effort: 'medium'}),
-    ).toEqual({reasoning_effort: 'medium'});
-    // No effort known → omit everything (no enable_thinking, no 400 bait).
-    expect(buildReasoningPayload('OpenAI', {enabled: true})).toEqual({});
-    expect(buildReasoningPayload('OpenAI', {enabled: false})).toEqual({});
-  });
-
-  it('unknown serverType omits everything', () => {
-    expect(buildReasoningPayload(undefined, {enabled: false})).toEqual({});
-    expect(
-      buildReasoningPayload('something-else', {enabled: false, effort: 'low'}),
-    ).toEqual({});
-  });
-});
-
 describe('streamChatCompletion reasoning payload', () => {
   let originalXHR: typeof XMLHttpRequest;
   beforeEach(() => {
@@ -2090,105 +1965,6 @@ describe('streamChatCompletion reasoning payload', () => {
   });
 });
 
-describe('buildSamplerPayload', () => {
-  // The server's own vocabulary, projected from a live `/slots` body rather
-  // than restated here: a name spelled the same way in the parser and in a
-  // hand-written fixture would agree with itself and with nothing else.
-  const serverSamplerNames = Object.keys(slotsAfterSamplerRequest[0].params);
-
-  const settings = {
-    temperature: 0.33,
-    top_p: 0.77,
-    top_k: 11,
-    min_p: 0.11,
-    typical_p: 0.91,
-    xtc_threshold: 0.31,
-    xtc_probability: 0.21,
-    penalty_last_n: 41,
-    penalty_repeat: 1.11,
-    penalty_freq: 0.41,
-    penalty_present: 0.51,
-    mirostat: 2,
-    mirostat_tau: 4.1,
-    mirostat_eta: 0.21,
-    seed: 12345,
-    n_predict: 128,
-  };
-
-  it('spells every emitted sampler the way the server does', () => {
-    const payload = buildSamplerPayload('llama.cpp', settings);
-
-    expect(Object.keys(payload)).not.toHaveLength(0);
-    for (const name of Object.keys(payload)) {
-      expect(serverSamplerNames).toContain(name);
-    }
-  });
-
-  it('renames the four penalties the server does not know by our names', () => {
-    const ourPenaltyNames = [
-      'penalty_last_n',
-      'penalty_repeat',
-      'penalty_freq',
-      'penalty_present',
-    ];
-    for (const ours of ourPenaltyNames) {
-      expect(serverSamplerNames).not.toContain(ours);
-    }
-
-    const payload = buildSamplerPayload('llama.cpp', settings);
-    for (const ours of ourPenaltyNames) {
-      expect(payload).not.toHaveProperty(ours);
-    }
-    expect(payload.repeat_last_n).toBe(41);
-    expect(payload.repeat_penalty).toBe(1.11);
-    expect(payload.frequency_penalty).toBe(0.41);
-    expect(payload.presence_penalty).toBe(0.51);
-  });
-
-  it('forwards the allow-listed samplers and nothing else', () => {
-    expect(buildSamplerPayload('llama.cpp', settings)).toEqual({
-      top_k: 11,
-      min_p: 0.11,
-      typical_p: 0.91,
-      xtc_threshold: 0.31,
-      xtc_probability: 0.21,
-      repeat_last_n: 41,
-      repeat_penalty: 1.11,
-      frequency_penalty: 0.41,
-      presence_penalty: 0.51,
-      mirostat: 2,
-      mirostat_tau: 4.1,
-      mirostat_eta: 0.21,
-      seed: 12345,
-    });
-  });
-
-  it('omits a value that is not a finite number, and keeps a zero', () => {
-    expect(
-      buildSamplerPayload('llama.cpp', {
-        top_k: undefined,
-        min_p: NaN,
-        typical_p: Infinity,
-        mirostat: 0,
-      }),
-    ).toEqual({mirostat: 0});
-  });
-
-  it('sends nothing for a server type with no allow-list row', () => {
-    for (const serverType of [
-      'vLLM',
-      'Ollama',
-      'OpenAI',
-      'LM Studio',
-      'something-else',
-      '',
-      undefined,
-    ]) {
-      expect(buildSamplerPayload(serverType, settings)).toEqual({});
-    }
-  });
-});
-
 describe('streamChatCompletion sampler payload', () => {
   let originalXHR: typeof XMLHttpRequest;
   beforeEach(() => {
@@ -2202,7 +1978,7 @@ describe('streamChatCompletion sampler payload', () => {
 
   /** Send one turn and return the parsed request body. */
   const bodyOf = async (
-    params: Record<string, any>,
+    params: Partial<StreamChatParams>,
     serverType?: string,
   ): Promise<any> => {
     const resultPromise = streamChatCompletion(
@@ -2228,12 +2004,14 @@ describe('streamChatCompletion sampler payload', () => {
   it('carries the changed samplers alongside the unconditional fields', async () => {
     const body = await bodyOf(
       {
-        temperature: 0.7,
-        top_p: 0.9,
-        max_tokens: 100,
+        samplers: {
+          temperature: 0.7,
+          top_p: 0.9,
+          n_predict: 100,
+          top_k: 10,
+          penalty_repeat: 1.2,
+        },
         stop: ['</s>'],
-        top_k: 10,
-        penalty_repeat: 1.2,
       },
       'llama.cpp',
     );
@@ -2249,12 +2027,14 @@ describe('streamChatCompletion sampler payload', () => {
 
   it('sends an unknown server type the same body as before', async () => {
     const body = await bodyOf({
-      temperature: 0.7,
-      top_p: 0.9,
-      max_tokens: 100,
+      samplers: {
+        temperature: 0.7,
+        top_p: 0.9,
+        n_predict: 100,
+        top_k: 10,
+        penalty_repeat: 1.2,
+      },
       stop: ['</s>'],
-      top_k: 10,
-      penalty_repeat: 1.2,
     });
 
     expect(body).toEqual({
@@ -2269,7 +2049,7 @@ describe('streamChatCompletion sampler payload', () => {
   });
 
   it('builds the same body whether or not a probe has landed', async () => {
-    const params = {top_k: 10, penalty_repeat: 1.2, seed: 7};
+    const params = {samplers: {top_k: 10, penalty_repeat: 1.2, seed: 7}};
     const before = await bodyOf(params, 'llama.cpp');
 
     runInAction(() => {

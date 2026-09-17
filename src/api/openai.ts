@@ -5,7 +5,6 @@ import {
   ReasoningIntent,
   ToolCall,
 } from '../utils/completionTypes';
-import {reasoningBudgetFor} from '../utils/reasoningCapability';
 import {RemoteModelInfo} from '../utils/types';
 import {
   CONNECTION_TIMEOUT_MS,
@@ -15,6 +14,7 @@ import {
   resolveTimeout,
 } from './http';
 import {encodeMessagesForRemote, hasLocalImageAttachment} from './remoteImages';
+import {dialectFor} from './servers';
 import type {RemoteEndpoint} from './servers/dialect';
 import type {Samplers} from '../utils/samplerParams';
 
@@ -61,98 +61,12 @@ export type OpenAIResponseFormat =
       };
     };
 
-/**
- * Every numeric completion control, mapped to the name llama.cpp knows it by,
- * for both reading a server default and sending a value.
- *
- * The four `penalty_*` renames are the wire's names, not ours: llama-server
- * accepts an unknown key with a 200 and ignores it, so under our own spelling
- * the sampler silently keeps its default.
- *
- * `n_predict` is the one entry whose read name is not its send name — it is
- * reported under `n_predict` and sent as `max_completion_tokens`.
- */
-export const PARAM_WIRE_NAME = {
-  temperature: 'temperature',
-  top_p: 'top_p',
-  top_k: 'top_k',
-  min_p: 'min_p',
-  typical_p: 'typical_p',
-  xtc_threshold: 'xtc_threshold',
-  xtc_probability: 'xtc_probability',
-  penalty_last_n: 'repeat_last_n',
-  penalty_repeat: 'repeat_penalty',
-  penalty_freq: 'frequency_penalty',
-  penalty_present: 'presence_penalty',
-  mirostat: 'mirostat',
-  mirostat_tau: 'mirostat_tau',
-  mirostat_eta: 'mirostat_eta',
-  seed: 'seed',
-  n_predict: 'n_predict',
-} as const;
-
-export type SamplerParam = keyof typeof PARAM_WIRE_NAME;
-
-/**
- * Samplers forwarded per server type; a type with no row receives none of
- * them. `temperature`, `top_p` and `max_completion_tokens` are missing here
- * because they are OpenAI-standard and sent unconditionally to every server.
- */
-export const FORWARD_ALLOWLIST: Partial<Record<string, SamplerParam[]>> = {
-  'llama.cpp': [
-    'top_k',
-    'min_p',
-    'typical_p',
-    'xtc_threshold',
-    'xtc_probability',
-    'penalty_last_n',
-    'penalty_repeat',
-    'penalty_freq',
-    'penalty_present',
-    'mirostat',
-    'mirostat_tau',
-    'mirostat_eta',
-    'seed',
-  ],
-  vLLM: [],
-};
-
-export function buildSamplerPayload(
-  serverType: string | undefined,
-  params: Partial<Record<SamplerParam, number>>,
-): Record<string, number> {
-  const payload: Record<string, number> = {};
-  for (const param of FORWARD_ALLOWLIST[serverType ?? ''] ?? []) {
-    const value = params[param];
-    if (typeof value === 'number' && Number.isFinite(value)) {
-      payload[PARAM_WIRE_NAME[param]] = value;
-    }
-  }
-  return payload;
-}
-
 /** Parameters for streaming chat completion */
 export interface StreamChatParams {
   messages: OpenAIChatMessage[];
   model: string;
   /** Every sampler the caller wants forwarded, under the app's own names. */
   samplers: Samplers;
-  temperature?: number;
-  top_p?: number;
-  max_tokens?: number;
-  top_k?: number;
-  min_p?: number;
-  typical_p?: number;
-  xtc_threshold?: number;
-  xtc_probability?: number;
-  penalty_last_n?: number;
-  penalty_repeat?: number;
-  penalty_freq?: number;
-  penalty_present?: number;
-  mirostat?: number;
-  mirostat_tau?: number;
-  mirostat_eta?: number;
-  seed?: number;
   stop?: string | string[];
   stream?: boolean;
   tools?: OpenAIToolDefinition[];
@@ -378,73 +292,6 @@ export async function testConnection(
  * React Native's fetch does not expose response.body (ReadableStream), so
  * XMLHttpRequest with onprogress is the standard approach for SSE streaming.
  */
-/**
- * Translate the reasoning intent into the per-serverType wire payload. Gating
- * is keyed on the PERSISTED serverType (never live detection). An unknown /
- * strict server receives no reasoning controls — omit beats a 400.
- *
- * - llama.cpp: reasoning_format always 'auto' (no-op for non-reasoning models;
- *   prevents raw channel/think markers leaking into content). ON+effort →
- *   + chat_template_kwargs:{reasoning_effort}; OFF → + chat_template_kwargs:
- *   {enable_thinking:false}. (ignores unknown → safe)
- * - vLLM (modern): ON+effort → chat_template_kwargs:{reasoning_effort}; ON →
- *   nothing; OFF → chat_template_kwargs:{enable_thinking:false}. (ignores unknown)
- * - LM Studio: on/off only — its chat API ignores reasoning_effort. ON →
- *   nothing; OFF → chat_template_kwargs:{enable_thinking:false}.
- * - Ollama (/v1): OFF → reasoning_effort:'none' (safe no-op). NEVER think:true,
- *   NEVER a non-'none' effort (hard-400 risk). Graded effort deferred.
- * - OpenAI: reasoning_effort:<value> only when axis-2 effort is known for the
- *   model id; nothing for on/off (400 on misapplied params).
- * - unknown / old vLLM: omit everything.
- */
-export function buildReasoningPayload(
-  serverType: string | undefined,
-  reasoning: ReasoningIntent | undefined,
-): Record<string, any> {
-  if (!reasoning) {
-    return {};
-  }
-  const {enabled, effort} = reasoning;
-  const budget = reasoningBudgetFor(effort);
-  switch (serverType) {
-    case 'llama.cpp':
-      // reasoning_format is always 'auto': a no-op for non-reasoning models and
-      // the value that extracts reasoning into reasoning_content instead of
-      // leaking raw channel/think markers into content (e.g. gemma-4 emits an
-      // empty <|channel>thought block even when thinking is off). On/off is
-      // carried solely by enable_thinking.
-      if (!enabled) {
-        return {
-          reasoning_format: 'auto',
-          chat_template_kwargs: {enable_thinking: false},
-        };
-      }
-      return effort
-        ? {
-            reasoning_format: 'auto',
-            chat_template_kwargs: {reasoning_effort: effort},
-            ...(budget !== undefined && {reasoning_budget_tokens: budget}),
-          }
-        : {reasoning_format: 'auto'};
-    case 'vLLM':
-      if (!enabled) {
-        return {chat_template_kwargs: {enable_thinking: false}};
-      }
-      return effort ? {chat_template_kwargs: {reasoning_effort: effort}} : {};
-    case 'LM Studio':
-      // On/off only; the LM Studio chat API ignores reasoning_effort.
-      return enabled ? {} : {chat_template_kwargs: {enable_thinking: false}};
-    case 'Ollama':
-      // OFF sends a safe no-op; ON sends nothing (never think:true).
-      return enabled ? {} : {reasoning_effort: 'none'};
-    case 'OpenAI':
-      return effort ? {reasoning_effort: effort} : {};
-    default:
-      // unknown / old vLLM — omit everything.
-      return {};
-  }
-}
-
 export async function streamChatCompletion(
   params: StreamChatParams,
   endpoint: RemoteEndpoint,
@@ -452,6 +299,7 @@ export async function streamChatCompletion(
   onToken?: (data: CompletionStreamData) => void,
 ): Promise<CompletionResult> {
   const {apiKey, serverType, timeoutMs} = endpoint;
+  const dialect = dialectFor(serverType);
   const url = `${normalizeUrl(endpoint.url)}/v1/chat/completions`;
   const connectionTimeoutMs = resolveTimeout(timeoutMs, CONNECTION_TIMEOUT_MS);
   const idleTimeoutMs = resolveTimeout(timeoutMs, IDLE_TIMEOUT_MS);
@@ -811,22 +659,15 @@ export async function streamChatCompletion(
       // by the timeout handler that triggered xhr.abort()
     };
 
-    // Only include params with meaningful values — some providers (e.g. OpenAI
-    // with newer models) reject unsupported or empty params with 400 errors.
-    const requestBody: Record<string, any> = {
-      model: params.model,
-      messages: encodedMessages,
-      stream: true,
-    };
-    if (params.temperature != null) {
-      requestBody.temperature = params.temperature;
-    }
-    if (params.top_p != null) {
-      requestBody.top_p = params.top_p;
-    }
-    if (params.max_tokens != null) {
-      requestBody.max_completion_tokens = params.max_tokens;
-    }
+    // Every key beyond the transport's own comes from the dialect, and the
+    // transport writes its keys last so a dialect cannot shadow one.
+    const requestBody: Record<string, any> = dialect.bodyExtras({
+      samplers: params.samplers,
+      reasoning: params.reasoning,
+    });
+    requestBody.model = params.model;
+    requestBody.messages = encodedMessages;
+    requestBody.stream = true;
     if (params.stop && params.stop.length > 0) {
       requestBody.stop = params.stop;
     }
@@ -855,23 +696,6 @@ export async function streamChatCompletion(
         };
       } else {
         requestBody.response_format = params.response_format;
-      }
-    }
-    Object.assign(requestBody, buildSamplerPayload(serverType, params));
-    // Per-serverType reasoning controls. Merge chat_template_kwargs rather than
-    // overwrite so a future caller-supplied kwarg is preserved.
-    const reasoningPayload = buildReasoningPayload(
-      serverType,
-      params.reasoning,
-    );
-    for (const [key, value] of Object.entries(reasoningPayload)) {
-      if (key === 'chat_template_kwargs') {
-        requestBody.chat_template_kwargs = {
-          ...requestBody.chat_template_kwargs,
-          ...value,
-        };
-      } else {
-        requestBody[key] = value;
       }
     }
     xhr.send(JSON.stringify(requestBody));

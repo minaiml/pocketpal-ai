@@ -1,6 +1,6 @@
 /**
  * User-selectable server types. Gates the per-server reasoning wire payload
- * (see api/openai.ts buildReasoningPayload). detectServerType seeds the value
+ * (see api/servers/ — one dialect per type). detectServerType seeds the value
  * best-effort; the user's selection wins.
  */
 export const SERVER_TYPE_OPTIONS = [

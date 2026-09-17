@@ -983,7 +983,6 @@ exports[`request body server type: LM Studio samplers: distinctive 1`] = `
 
 exports[`request body server type: LM Studio samplers: non-finite values 1`] = `
 {
-  "max_completion_tokens": null,
   "messages": [
     {
       "content": "Hi",
@@ -992,8 +991,6 @@ exports[`request body server type: LM Studio samplers: non-finite values 1`] = `
   ],
   "model": "m",
   "stream": true,
-  "temperature": null,
-  "top_p": null,
 }
 `;
 
@@ -1243,7 +1240,6 @@ exports[`request body server type: Ollama samplers: distinctive 1`] = `
 
 exports[`request body server type: Ollama samplers: non-finite values 1`] = `
 {
-  "max_completion_tokens": null,
   "messages": [
     {
       "content": "Hi",
@@ -1252,8 +1248,6 @@ exports[`request body server type: Ollama samplers: non-finite values 1`] = `
   ],
   "model": "m",
   "stream": true,
-  "temperature": null,
-  "top_p": null,
 }
 `;
 
@@ -1509,7 +1503,6 @@ exports[`request body server type: OpenAI samplers: distinctive 1`] = `
 
 exports[`request body server type: OpenAI samplers: non-finite values 1`] = `
 {
-  "max_completion_tokens": null,
   "messages": [
     {
       "content": "Hi",
@@ -1518,8 +1511,6 @@ exports[`request body server type: OpenAI samplers: non-finite values 1`] = `
   ],
   "model": "m",
   "stream": true,
-  "temperature": null,
-  "top_p": null,
 }
 `;
 
@@ -1766,7 +1757,6 @@ exports[`request body server type: case variant samplers: distinctive 1`] = `
 
 exports[`request body server type: case variant samplers: non-finite values 1`] = `
 {
-  "max_completion_tokens": null,
   "messages": [
     {
       "content": "Hi",
@@ -1775,8 +1765,6 @@ exports[`request body server type: case variant samplers: non-finite values 1`] 
   ],
   "model": "m",
   "stream": true,
-  "temperature": null,
-  "top_p": null,
 }
 `;
 
@@ -2023,7 +2011,6 @@ exports[`request body server type: empty string samplers: distinctive 1`] = `
 
 exports[`request body server type: empty string samplers: non-finite values 1`] = `
 {
-  "max_completion_tokens": null,
   "messages": [
     {
       "content": "Hi",
@@ -2032,8 +2019,6 @@ exports[`request body server type: empty string samplers: non-finite values 1`] 
   ],
   "model": "m",
   "stream": true,
-  "temperature": null,
-  "top_p": null,
 }
 `;
 
@@ -2280,7 +2265,6 @@ exports[`request body server type: free string samplers: distinctive 1`] = `
 
 exports[`request body server type: free string samplers: non-finite values 1`] = `
 {
-  "max_completion_tokens": null,
   "messages": [
     {
       "content": "Hi",
@@ -2289,8 +2273,6 @@ exports[`request body server type: free string samplers: non-finite values 1`] =
   ],
   "model": "m",
   "stream": true,
-  "temperature": null,
-  "top_p": null,
 }
 `;
 
@@ -2628,7 +2610,6 @@ exports[`request body server type: llama.cpp samplers: distinctive 1`] = `
 
 exports[`request body server type: llama.cpp samplers: non-finite values 1`] = `
 {
-  "max_completion_tokens": null,
   "messages": [
     {
       "content": "Hi",
@@ -2637,8 +2618,6 @@ exports[`request body server type: llama.cpp samplers: non-finite values 1`] = `
   ],
   "model": "m",
   "stream": true,
-  "temperature": null,
-  "top_p": null,
 }
 `;
 
@@ -2886,7 +2865,6 @@ exports[`request body server type: undefined samplers: distinctive 1`] = `
 
 exports[`request body server type: undefined samplers: non-finite values 1`] = `
 {
-  "max_completion_tokens": null,
   "messages": [
     {
       "content": "Hi",
@@ -2895,8 +2873,6 @@ exports[`request body server type: undefined samplers: non-finite values 1`] = `
   ],
   "model": "m",
   "stream": true,
-  "temperature": null,
-  "top_p": null,
 }
 `;
 
@@ -3143,7 +3119,6 @@ exports[`request body server type: unknown samplers: distinctive 1`] = `
 
 exports[`request body server type: unknown samplers: non-finite values 1`] = `
 {
-  "max_completion_tokens": null,
   "messages": [
     {
       "content": "Hi",
@@ -3152,8 +3127,6 @@ exports[`request body server type: unknown samplers: non-finite values 1`] = `
   ],
   "model": "m",
   "stream": true,
-  "temperature": null,
-  "top_p": null,
 }
 `;
 
@@ -3433,7 +3406,6 @@ exports[`request body server type: vLLM samplers: distinctive 1`] = `
 
 exports[`request body server type: vLLM samplers: non-finite values 1`] = `
 {
-  "max_completion_tokens": null,
   "messages": [
     {
       "content": "Hi",
@@ -3442,8 +3414,6 @@ exports[`request body server type: vLLM samplers: non-finite values 1`] = `
   ],
   "model": "m",
   "stream": true,
-  "temperature": null,
-  "top_p": null,
 }
 `;
 
