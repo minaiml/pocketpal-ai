@@ -249,6 +249,7 @@ describe('fetchServerProps', () => {
       mirostat_tau: wire.mirostat_tau,
       mirostat_eta: wire.mirostat_eta,
       n_predict: wire.n_predict,
+      n_probs: wire.n_probs,
     });
     expect(props.slotCount).toBe(propsModelDescribing.total_slots);
     // The wire carries both; nothing reads them, so nothing persists them.
@@ -262,6 +263,24 @@ describe('fetchServerProps', () => {
       probedUrl: 'http://localhost:8080',
       at: expect.any(Number),
     });
+  });
+
+  // The read names are derived from the llama.cpp send map, so a param read
+  // under its send name would be silently wrong wherever the two differ.
+  it('reads each default under the name the server reports, not the send name', async () => {
+    global.fetch = jest.fn().mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve(propsModelDescribing),
+    });
+
+    const {props} = await fetchServerProps('http://localhost:8080');
+
+    // n_predict is the one param the server reports under a different name
+    // than the one we send it as (max_completion_tokens).
+    expect(props?.samplerDefaults?.n_predict).toBe(-1);
+    expect(props?.samplerDefaults?.n_probs).toBe(0);
+    // The server reports its live seed, which is not a default worth keeping.
+    expect(props?.samplerDefaults).not.toHaveProperty('seed');
   });
 
   it('keeps a server default that is zero', async () => {

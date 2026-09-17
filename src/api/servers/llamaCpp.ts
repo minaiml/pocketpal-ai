@@ -24,6 +24,7 @@ const sendNames = {
   mirostat_tau: 'mirostat_tau',
   mirostat_eta: 'mirostat_eta',
   seed: 'seed',
+  n_probs: 'n_probs',
 } as const;
 
 /**

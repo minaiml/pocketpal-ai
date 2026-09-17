@@ -33,6 +33,7 @@ const SAMPLERS = {
   mirostat_eta: 0.1,
   seed: 42,
   n_predict: 1024,
+  n_probs: 3,
 };
 
 const REQUESTS: Array<[string, DialectRequest]> = [

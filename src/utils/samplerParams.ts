@@ -22,6 +22,7 @@ export const SAMPLER_PARAMS = [
   'mirostat_eta',
   'seed',
   'n_predict',
+  'n_probs',
 ] as const satisfies readonly (keyof CompletionParams)[];
 
 export type SamplerParam = (typeof SAMPLER_PARAMS)[number];
