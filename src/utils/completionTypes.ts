@@ -67,6 +67,20 @@ export interface CompletionTimings {
   cache_n?: number;
 }
 
+/**
+ * What `metadata.timings` holds on a stored message: the engine's timings plus
+ * the three facts the chat hook measures itself. Persisted under one key with
+ * one consequence, so both ends name the same type — a rename that reached only
+ * one of them would blank that part of every stored footer. TTFT is stored as
+ * null when the turn produced no first token, so reads go through finiteNumber
+ * like every other field here.
+ */
+export interface PersistedTurnTimings extends CompletionTimings {
+  time_to_first_token_ms?: number | null;
+  draft_tokens?: number;
+  draft_tokens_accepted?: number;
+}
+
 const TIMING_FIELDS = [
   'prompt_n',
   'prompt_ms',

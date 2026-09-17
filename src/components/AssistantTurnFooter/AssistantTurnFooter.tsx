@@ -15,6 +15,7 @@ import {styles} from './styles';
 import {chatSessionStore} from '../../store';
 import {L10nContext} from '../../utils';
 import {derivedText} from '../../utils/chat';
+import type {PersistedTurnTimings} from '../../utils/completionTypes';
 import {finiteNumber} from '../../utils/finite';
 import {MessageType} from '../../utils/types';
 import {t} from '../../locales';
@@ -32,8 +33,9 @@ export const AssistantTurnFooter: React.FC<AssistantTurnFooterProps> = observer(
   ({message}) => {
     const theme = useTheme();
     const l10n = useContext(L10nContext);
-    const {copyable, timings, interrupted, truncationLikely, completionResult} =
+    const {copyable, interrupted, truncationLikely, completionResult} =
       message.metadata || {};
+    const timings: PersistedTurnTimings | undefined = message.metadata?.timings;
 
     if (!timings && !copyable && !interrupted) {
       return null;
