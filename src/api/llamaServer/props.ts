@@ -4,6 +4,7 @@ import {
   RemoteModelProps,
   SamplerDefaults,
 } from '../../utils/types';
+import {finiteNumber} from '../../utils/finite';
 import {buildHeaders, normalizeUrl, resolveTimeout} from '../http';
 import {PARAM_WIRE_NAME, SamplerParam} from '../openai';
 
@@ -17,9 +18,6 @@ export interface ServerPropsResult {
   props: RemoteModelProps;
   presence?: RemoteModelPresence;
 }
-
-const finiteNumber = (value: unknown): number | undefined =>
-  typeof value === 'number' && Number.isFinite(value) ? value : undefined;
 
 const definiteBoolean = (value: unknown): boolean | undefined =>
   typeof value === 'boolean' ? value : undefined;
