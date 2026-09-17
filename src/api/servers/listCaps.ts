@@ -1,21 +1,8 @@
-import type {RemoteModelInfo, ServerConfig} from './types';
-
-/**
- * What a `GET /v1/models` row already says about a model, before anything is
- * activated or probed. Weaker than a probe: the fields describe how the server
- * was configured, not what a loaded session reports.
- *
- * The required `tier` makes this and `RemoteModelCaps` mutually non-assignable,
- * so "a list answer can never be mistaken for a confirmed one" is a compile
- * error rather than a rule to remember.
- */
-export interface ListDerivedCaps {
-  tier: 'list';
-  supportsVision?: boolean;
-  // Declared so the resolver can read it; nothing derives it yet.
-  supportsAudio?: boolean;
-  contextLength?: number;
-}
+import type {
+  ListDerivedCaps,
+  RemoteModelInfo,
+  ServerConfig,
+} from '../../utils/types';
 
 const CONTEXT_FLAGS = ['--ctx-size', '-c'];
 

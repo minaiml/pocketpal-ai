@@ -8,7 +8,7 @@ import {
   ServerConfig,
 } from '../../src/utils/types';
 import {ReasoningCapability} from '../../src/utils/reasoningCapability';
-import {deriveListCapsMap} from '../../src/utils/listCaps';
+import {deriveListCapsMap} from '../../src/api/servers/listCaps';
 import {
   SleepState,
   lastObservedSleepState,

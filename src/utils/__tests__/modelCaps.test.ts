@@ -1,6 +1,6 @@
 import {CapabilityEnv, resolveModelCaps} from '../modelCaps';
 import {Model, ModelOrigin} from '../types';
-import type {ListDerivedCaps} from '../listCaps';
+import type {ListDerivedCaps} from '../types';
 
 const env = (overrides: Partial<CapabilityEnv> = {}): CapabilityEnv => ({
   remoteCaps: {},

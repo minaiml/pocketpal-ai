@@ -2,10 +2,14 @@ import {
   directTextModelsBody,
   directVisionModelsBody,
   routerModelsBody,
-} from '../../../jest/fixtures/remoteModelList';
+} from '../../../../jest/fixtures/remoteModelList';
 import {deriveListCaps, deriveListCapsMap} from '../listCaps';
-import type {ListDerivedCaps} from '../listCaps';
-import type {RemoteModelCaps, RemoteModelInfo, ServerConfig} from '../types';
+import type {
+  ListDerivedCaps,
+  RemoteModelCaps,
+  RemoteModelInfo,
+  ServerConfig,
+} from '../../../utils/types';
 
 const routerRow = (id: string): RemoteModelInfo => {
   const row = routerModelsBody.data.find(r => r.id === id);

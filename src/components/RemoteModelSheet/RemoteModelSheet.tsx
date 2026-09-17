@@ -34,7 +34,7 @@ import {
 import {RemoteModelInfo, ServerConfig} from '../../utils/types';
 import {fetchModels, fetchModelsWithHeaders} from '../../api/openai';
 import {detectServerType} from '../../api/servers/detect';
-import {deriveListCaps} from '../../utils/listCaps';
+import {deriveListCaps} from '../../api/servers/listCaps';
 import {t} from '../../locales';
 
 import {createStyles} from './styles';

@@ -6,7 +6,7 @@
  */
 import {OpenAICompletionEngine} from '../completionEngines';
 import {fetchServerProps} from '../llamaServer/props';
-import {deriveListCaps} from '../../utils/listCaps';
+import {deriveListCaps} from '../servers/listCaps';
 import {EFFORT_LEVELS} from '../../utils/reasoningCapability';
 import {
   propsModelDescribing,

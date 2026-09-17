@@ -1,6 +1,6 @@
 import {resolveRemoteCaps} from './remoteCaps';
 import {ModelOrigin} from './types';
-import type {ListDerivedCaps} from './listCaps';
+import type {ListDerivedCaps} from './types';
 import type {
   ContextInitParams,
   Model,

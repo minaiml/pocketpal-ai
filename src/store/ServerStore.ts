@@ -8,6 +8,7 @@ import * as Keychain from 'react-native-keychain';
 import {fetchModels, testConnection} from '../api/openai';
 import {fetchServerProps, PROPS_TIMEOUT_MS} from '../api/llamaServer/props';
 import {
+  ListDerivedCaps,
   RemoteModelCaps,
   RemoteModelInfo,
   RemoteModelPresence,
@@ -15,8 +16,7 @@ import {
   ServerConfig,
 } from '../utils/types';
 import {ReasoningCapability} from '../utils/reasoningCapability';
-import {deriveListCapsMap} from '../utils/listCaps';
-import type {ListDerivedCaps} from '../utils/listCaps';
+import {deriveListCapsMap} from '../api/servers/listCaps';
 
 const KEYCHAIN_SERVICE_PREFIX = 'pocketpal-server-';
 
