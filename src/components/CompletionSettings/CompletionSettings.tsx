@@ -56,7 +56,8 @@ export const CompletionSettings: React.FC<Props> = ({
    * What the server says this parameter defaults to, and whether the editor is
    * still on it. `tolerance` is half a slider step, so a quantised float does
    * not read as a deliberate change; a discrete control passes 0 and compares
-   * exactly.
+   * exactly. `seed` has no affordance: the server reports its live seed, which
+   * `readSamplerDefaults` refuses to offer as a value to return to.
    */
   const renderServerDefault = (name: SamplerParam, tolerance: number) => {
     const serverValue = serverDefaults?.[name];
@@ -155,7 +156,6 @@ export const CompletionSettings: React.FC<Props> = ({
           editable={!disabled}
           testID={`${String(name)}-input`}
         />
-        {renderServerDefault(name, 0)}
       </View>
     );
   };
