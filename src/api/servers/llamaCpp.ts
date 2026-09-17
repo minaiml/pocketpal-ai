@@ -1,6 +1,6 @@
 import type {ReasoningIntent} from '../../utils/completionTypes';
 import {reasoningBudgetFor} from '../../utils/reasoningCapability';
-import {BASE_SEND_NAMES, openAICompatible, sendSamplers} from './base';
+import {BASE_SEND_NAMES, openAICompatible, sendMap} from './base';
 import type {ServerDialect} from './dialect';
 import {readLlamaCppListRow} from './llamaCppListRow';
 
@@ -62,11 +62,7 @@ function reasoningExtras(
 export const llamaCpp = {
   ...openAICompatible,
   type: 'llama.cpp',
-  sendNames,
-  bodyExtras: ({samplers, reasoning}) => ({
-    ...sendSamplers(sendNames, samplers),
-    ...reasoningExtras(reasoning),
-  }),
+  ...sendMap(sendNames, reasoningExtras),
   readModelEntry: readLlamaCppListRow,
   discovery: {
     hasProps: true,

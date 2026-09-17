@@ -1,5 +1,5 @@
 import type {ReasoningIntent} from '../../utils/completionTypes';
-import {BASE_SEND_NAMES, openAICompatible, sendSamplers} from './base';
+import {BASE_SEND_NAMES, openAICompatible, sendMap} from './base';
 import type {ServerDialect} from './dialect';
 
 /** On/off only: the LM Studio chat API ignores `reasoning_effort`. */
@@ -15,8 +15,5 @@ function reasoningExtras(
 export const lmStudio = {
   ...openAICompatible,
   type: 'LM Studio',
-  bodyExtras: ({samplers, reasoning}) => ({
-    ...sendSamplers(BASE_SEND_NAMES, samplers),
-    ...reasoningExtras(reasoning),
-  }),
+  ...sendMap(BASE_SEND_NAMES, reasoningExtras),
 } satisfies ServerDialect;

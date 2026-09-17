@@ -1,7 +1,8 @@
 import {normaliseTimings} from '../../utils/completionTypes';
+import type {ReasoningIntent} from '../../utils/completionTypes';
 import {finiteNumber} from '../../utils/finite';
 import type {SamplerParam, Samplers} from '../../utils/samplerParams';
-import type {FinishRead, ServerDialect} from './dialect';
+import type {DialectRequest, FinishRead, ServerDialect} from './dialect';
 
 /**
  * The three names every OpenAI-compatible server answers to. `n_predict` is
@@ -53,11 +54,34 @@ export function readTimingsFinish(chunk: unknown): FinishRead {
   return {timings, tokensEvaluated, tokensPredicted: timings.predicted_n};
 }
 
+/**
+ * A dialect's send map together with the body that emits it, as one statement:
+ * naming a sampler is what forwards it, so the two cannot come to disagree.
+ * The generic keeps the caller's literal type, which is what makes the
+ * llama.cpp map total over `SamplerParam` where the props reader spreads it.
+ */
+export function sendMap<T extends Partial<Record<SamplerParam, string>>>(
+  sendNames: T,
+  reasoningExtras: (
+    reasoning: ReasoningIntent | undefined,
+  ) => Record<string, unknown> = () => ({}),
+): {
+  sendNames: T;
+  bodyExtras: (req: DialectRequest) => Record<string, unknown>;
+} {
+  return {
+    sendNames,
+    bodyExtras: ({samplers, reasoning}) => ({
+      ...sendSamplers(sendNames, samplers),
+      ...reasoningExtras(reasoning),
+    }),
+  };
+}
+
 /** What every server type receives, `'unknown'` included. */
 export const openAICompatible = {
   type: 'unknown',
-  sendNames: BASE_SEND_NAMES,
-  bodyExtras: ({samplers}) => sendSamplers(BASE_SEND_NAMES, samplers),
+  ...sendMap(BASE_SEND_NAMES),
   readFinish: readTimingsFinish,
   readModelEntry: () => ({tier: 'list'}),
   discovery: {

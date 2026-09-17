@@ -1,5 +1,5 @@
 import type {ReasoningIntent} from '../../utils/completionTypes';
-import {BASE_SEND_NAMES, openAICompatible, sendSamplers} from './base';
+import {BASE_SEND_NAMES, openAICompatible, sendMap} from './base';
 import type {ServerDialect} from './dialect';
 
 /**
@@ -24,8 +24,5 @@ function reasoningExtras(
 export const vllm = {
   ...openAICompatible,
   type: 'vLLM',
-  bodyExtras: ({samplers, reasoning}) => ({
-    ...sendSamplers(BASE_SEND_NAMES, samplers),
-    ...reasoningExtras(reasoning),
-  }),
+  ...sendMap(BASE_SEND_NAMES, reasoningExtras),
 } satisfies ServerDialect;

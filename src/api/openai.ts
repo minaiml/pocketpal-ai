@@ -285,6 +285,23 @@ export async function testConnection(
 }
 
 /**
+ * The keys the transport owns. It writes them after the dialect's, so a
+ * dialect naming one would be silently overwritten — which is why the list is
+ * the type of the transport's own body rather than a copy kept beside it.
+ */
+export const TRANSPORT_BODY_KEYS = [
+  'model',
+  'messages',
+  'stream',
+  'stop',
+  'tools',
+  'tool_choice',
+  'response_format',
+] as const;
+
+export type TransportBodyKey = (typeof TRANSPORT_BODY_KEYS)[number];
+
+/**
  * Stream a chat completion from an OpenAI-compatible server.
  * POST /v1/chat/completions with stream: true
  *
@@ -639,25 +656,21 @@ export async function streamChatCompletion(
       // by the timeout handler that triggered xhr.abort()
     };
 
-    // Every key beyond the transport's own comes from the dialect, and the
-    // transport writes its keys last so a dialect cannot shadow one.
-    const requestBody: Record<string, any> = dialect.bodyExtras({
-      samplers: params.samplers,
-      reasoning: params.reasoning,
-    });
-    requestBody.model = params.model;
-    requestBody.messages = encodedMessages;
-    requestBody.stream = true;
+    const transportBody: Partial<Record<TransportBodyKey, any>> = {
+      model: params.model,
+      messages: encodedMessages,
+      stream: true,
+    };
     if (params.stop && params.stop.length > 0) {
-      requestBody.stop = params.stop;
+      transportBody.stop = params.stop;
     }
     // Only attach when the caller actually supplied them — empty arrays
     // cause some servers (and their schema validators) to choke.
     if (params.tools && params.tools.length > 0) {
-      requestBody.tools = params.tools;
+      transportBody.tools = params.tools;
     }
     if (params.tool_choice !== undefined) {
-      requestBody.tool_choice = params.tool_choice;
+      transportBody.tool_choice = params.tool_choice;
     }
     if (params.response_format) {
       // OpenAI requires `name` inside json_schema; llama.cpp / Ollama /
@@ -667,7 +680,7 @@ export async function streamChatCompletion(
         params.response_format.type === 'json_schema' &&
         !params.response_format.json_schema.name
       ) {
-        requestBody.response_format = {
+        transportBody.response_format = {
           ...params.response_format,
           json_schema: {
             ...params.response_format.json_schema,
@@ -675,9 +688,19 @@ export async function streamChatCompletion(
           },
         };
       } else {
-        requestBody.response_format = params.response_format;
+        transportBody.response_format = params.response_format;
       }
     }
+
+    // Every key beyond the transport's own comes from the dialect, and the
+    // transport's keys are spread last so a dialect cannot shadow one.
+    const requestBody = {
+      ...dialect.bodyExtras({
+        samplers: params.samplers,
+        reasoning: params.reasoning,
+      }),
+      ...transportBody,
+    };
     xhr.send(JSON.stringify(requestBody));
   });
 }

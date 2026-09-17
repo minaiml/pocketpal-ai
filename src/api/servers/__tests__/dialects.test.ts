@@ -1,20 +1,9 @@
+import {TRANSPORT_BODY_KEYS} from '../../openai';
 import {DIALECTS, dialectFor} from '../index';
 import {openAICompatible} from '../base';
 import type {DialectRequest, ServerDialect} from '../dialect';
 import type {ServerType} from '../../../utils/serverTypes';
 import {streamFinishChunk} from '../../../../jest/fixtures/llamaServerWire';
-
-// The keys the transport writes itself. One returned by a dialect would be
-// silently overwritten, so no dialect may name one.
-const TRANSPORT_BODY_KEYS = [
-  'model',
-  'messages',
-  'stream',
-  'stop',
-  'tools',
-  'tool_choice',
-  'response_format',
-];
 
 const SAMPLERS = {
   temperature: 0.7,
@@ -71,6 +60,8 @@ describe('DIALECTS', () => {
 });
 
 describe.each(entries)('the %s dialect', (_type, dialect) => {
+  // The transport's own list, not a copy of it: a key it gains is a key this
+  // check starts banning, without anyone remembering to add it here.
   it.each(REQUESTS)('returns no transport-owned key for %s', (_name, req) => {
     for (const key of Object.keys(dialect.bodyExtras(req))) {
       expect(TRANSPORT_BODY_KEYS).not.toContain(key);
