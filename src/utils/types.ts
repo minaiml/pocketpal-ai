@@ -11,7 +11,7 @@ import type {TokenRadius, TokenStroke, TokenTypography} from '../theme/tokens';
 import {SkillKey} from '.';
 import type {TalentResult} from '../services/talents/types';
 import type {ReasoningCapability} from './reasoningCapability';
-import type {SamplerParam} from '../api/openai';
+import type {Samplers} from './samplerParams';
 
 /**
  * One model-emitted tool call within an `AgentStep`. The `arguments` field
@@ -535,7 +535,7 @@ export interface ListDerivedCaps {
 }
 
 /** A server's own generation defaults, keyed by our names rather than the wire's. */
-export type SamplerDefaults = Partial<Record<SamplerParam, number>>;
+export type SamplerDefaults = Samplers;
 
 /**
  * What a llama.cpp server says about one model beyond its capabilities: facts

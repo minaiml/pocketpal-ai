@@ -18,7 +18,7 @@ import {
 } from '../../utils/modelSettings';
 import {CompletionParams} from '../../utils/completionTypes';
 import {SamplerDefaults} from '../../utils/types';
-import {SamplerParam} from '../../api/openai';
+import {SamplerParam} from '../../utils/samplerParams';
 
 /** The step a control is edited at; `renderSlider` reads the same value. */
 const stepOf = (name: string): number =>
