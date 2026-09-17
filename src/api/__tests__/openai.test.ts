@@ -1294,6 +1294,37 @@ describe('streamChatCompletion', () => {
     expect(result.tokens_predicted).toBe(4);
   });
 
+  it('reads the final frame that arrives without a trailing blank line', async () => {
+    const resultPromise = streamChatCompletion(
+      {
+        samplers: {},
+        messages: [{role: 'user', content: 'Hi'}],
+        model: 'test-model',
+      },
+      endpointFor(),
+    );
+
+    const xhr = MockXHR.instances[0];
+    xhr.simulateHeaders(200);
+    xhr.simulateProgress(
+      'data: {"choices":[{"delta":{"content":"Hel"},"finish_reason":null}]}\n\n',
+    );
+    // No terminating "\n\n", so the SSE parser holds this frame in its buffer
+    // and only the flush at onload can reach it.
+    xhr.simulateProgress(
+      'data: {"choices":[{"delta":{"content":"lo","reasoning_content":"why"},"finish_reason":"stop"}],"timings":{"prompt_n":7,"cache_n":2,"predicted_n":5}}',
+    );
+    xhr.simulateLoad();
+
+    const result = await resultPromise;
+    expect(result.timings).toEqual({prompt_n: 7, cache_n: 2, predicted_n: 5});
+    expect(result.tokens_evaluated).toBe(9);
+    expect(result.tokens_predicted).toBe(5);
+    expect(result.content).toBe('Hello');
+    expect(result.reasoning_content).toBe('why');
+    expect(result.stopped_eos).toBe(true);
+  });
+
   it('reconciles token counts from timings prompt_n/predicted_n', async () => {
     const resultPromise = streamChatCompletion(
       {

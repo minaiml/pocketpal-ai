@@ -382,6 +382,43 @@ export async function streamChatCompletion(
     };
 
     /**
+     * Fold one validated chunk into the accumulated turn and hand back its own
+     * delta. Every event goes through here, whether it arrived via onprogress
+     * or was left in the parser buffer for the flush at onload.
+     */
+    const accumulateChunk = (parsed: any) => {
+      const choice = parsed.choices[0];
+      const delta = choice.delta || {};
+      const content = delta.content || '';
+      const reasoningContent = delta.reasoning_content || delta.reasoning || '';
+
+      if (content) {
+        fullContent += content;
+        tokensPredicted++;
+      }
+      if (reasoningContent) {
+        fullReasoningContent += reasoningContent;
+      }
+      if (choice.finish_reason) {
+        finishReason = choice.finish_reason;
+      }
+
+      // The dialect reads the finish facts; the latest chunk that carries
+      // timings wins, whatever its finish_reason.
+      const finish = dialect.readFinish(parsed);
+      if (finish.timings) {
+        serverFinish = finish;
+      }
+
+      let toolCallsDelta: ToolCall[] | undefined;
+      if (Array.isArray(delta.tool_calls) && delta.tool_calls.length > 0) {
+        toolCallsDelta = applyToolCallDelta(toolCallAcc, delta.tool_calls);
+      }
+
+      return {content, reasoningContent, toolCallsDelta};
+    };
+
+    /**
      * Process new SSE data from the response.
      * Called from onprogress with the new text chunk.
      */
@@ -397,39 +434,11 @@ export async function streamChatCompletion(
 
         resetIdleTimer();
 
-        const parsed = event as any;
-        const choice = parsed.choices[0];
-        const delta = choice.delta || {};
-        const content = delta.content || '';
-        const reasoningContent =
-          delta.reasoning_content || delta.reasoning || '';
+        const {content, reasoningContent, toolCallsDelta} =
+          accumulateChunk(event);
 
-        if (content) {
-          fullContent += content;
-          tokensPredicted++;
-        }
-        if (reasoningContent) {
-          fullReasoningContent += reasoningContent;
-        }
-        if (choice.finish_reason) {
-          finishReason = choice.finish_reason;
-        }
-
-        // The dialect reads the finish facts; the latest chunk that carries
-        // timings wins, whatever its finish_reason.
-        const finish = dialect.readFinish(parsed);
-        if (finish.timings) {
-          serverFinish = finish;
-        }
-
-        // When tool_calls deltas are present, forward a token event so
-        // the agent loop can react to a tool call beginning to assemble
-        // — same shape llama.rn emits.
-        let toolCallsDelta: ToolCall[] | undefined;
-        if (Array.isArray(delta.tool_calls) && delta.tool_calls.length > 0) {
-          toolCallsDelta = applyToolCallDelta(toolCallAcc, delta.tool_calls);
-        }
-
+        // A tool_calls delta gets a token event of its own so the agent loop
+        // can react to a call beginning to assemble — same shape llama.rn emits.
         if (
           onToken &&
           (content ||
@@ -533,7 +542,8 @@ export async function streamChatCompletion(
         processChunk(remaining);
       }
 
-      // Flush the SSE parser buffer
+      // Flush the SSE parser buffer: a server that closes the stream on a
+      // final frame with no trailing blank line leaves it here.
       for (const event of parser.flush()) {
         if (event === 'done') {
           break;
@@ -541,26 +551,7 @@ export async function streamChatCompletion(
         if (!isValidChatChunk(event)) {
           continue;
         }
-        const parsed = event as any;
-        const choice = parsed.choices[0];
-        const delta = choice.delta || {};
-        if (delta.content) {
-          fullContent += delta.content;
-          tokensPredicted++;
-        }
-        if (delta.reasoning_content || delta.reasoning) {
-          fullReasoningContent += delta.reasoning_content || delta.reasoning;
-        }
-        if (choice.finish_reason) {
-          finishReason = choice.finish_reason;
-        }
-        const finish = dialect.readFinish(parsed);
-        if (finish.timings) {
-          serverFinish = finish;
-        }
-        if (Array.isArray(delta.tool_calls) && delta.tool_calls.length > 0) {
-          applyToolCallDelta(toolCallAcc, delta.tool_calls);
-        }
+        accumulateChunk(event);
       }
 
       // Mirror llama.rn's shape: undefined when no tool_calls were
