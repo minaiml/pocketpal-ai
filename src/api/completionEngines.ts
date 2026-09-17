@@ -60,13 +60,34 @@ export class LocalCompletionEngine implements CompletionEngine {
 export class OpenAICompletionEngine implements CompletionEngine {
   private abortController: AbortController | null = null;
 
-  constructor(private endpoint: RemoteEndpoint) {}
+  constructor(
+    private endpoint: RemoteEndpoint,
+    private options?: {ensureReady?: () => Promise<void>},
+  ) {}
 
   async completion(
     params: ApiCompletionParams,
     callback?: (data: CompletionStreamData) => void,
   ): Promise<CompletionResult> {
-    this.abortController = new AbortController();
+    // The controller exists before the readiness wait, and the rest of the call
+    // reads the local one: stopCompletion() nulls the field, so a stop during
+    // readiness must still reach the signal this turn passes on.
+    const controller = new AbortController();
+    this.abortController = controller;
+
+    if (this.options?.ensureReady) {
+      try {
+        await this.options.ensureReady();
+      } catch (error) {
+        // The abort wins: the user never sees an error for a turn they stopped.
+        if (!controller.signal.aborted) {
+          throw error;
+        }
+      }
+    }
+    if (controller.signal.aborted) {
+      return {text: '', content: '', tokens_predicted: 0, interrupted: true};
+    }
 
     return streamChatCompletion(
       {
@@ -84,7 +105,7 @@ export class OpenAICompletionEngine implements CompletionEngine {
         reasoning: params.reasoning,
       },
       this.endpoint,
-      this.abortController.signal,
+      controller.signal,
       callback,
     );
   }

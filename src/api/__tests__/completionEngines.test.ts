@@ -395,6 +395,69 @@ describe('OpenAICompletionEngine', () => {
     );
   });
 
+  describe('a stop during the readiness wait', () => {
+    /** An ensureReady this test resolves or rejects by hand. */
+    const deferredReady = () => {
+      let settle!: (outcome: 'ready' | Error) => void;
+      const gate = new Promise<void>((resolve, reject) => {
+        settle = outcome => (outcome === 'ready' ? resolve() : reject(outcome));
+      });
+      return {ensureReady: () => gate, settle};
+    };
+
+    it('resolves interrupted and opens no request when stopped mid-wait', async () => {
+      const {ensureReady, settle} = deferredReady();
+      const gatedEngine = new OpenAICompletionEngine(ENDPOINT, {ensureReady});
+
+      const resultPromise = gatedEngine.completion({
+        messages: [{role: 'user', content: 'Hi'}],
+      } as any);
+      await gatedEngine.stopCompletion();
+      settle('ready');
+
+      await expect(resultPromise).resolves.toEqual({
+        text: '',
+        content: '',
+        tokens_predicted: 0,
+        interrupted: true,
+      });
+      expect(mockedStreamChat).not.toHaveBeenCalled();
+    });
+
+    it('propagates a readiness failure unchanged when nothing stopped', async () => {
+      const {ensureReady, settle} = deferredReady();
+      const gatedEngine = new OpenAICompletionEngine(ENDPOINT, {ensureReady});
+      const withdrawn = new Error('model request withdrawn');
+
+      const resultPromise = gatedEngine.completion({
+        messages: [{role: 'user', content: 'Hi'}],
+      } as any);
+      settle(withdrawn);
+
+      await expect(resultPromise).rejects.toBe(withdrawn);
+      expect(mockedStreamChat).not.toHaveBeenCalled();
+    });
+
+    it('lets the stop win over a readiness failure that follows it', async () => {
+      const {ensureReady, settle} = deferredReady();
+      const gatedEngine = new OpenAICompletionEngine(ENDPOINT, {ensureReady});
+
+      const resultPromise = gatedEngine.completion({
+        messages: [{role: 'user', content: 'Hi'}],
+      } as any);
+      await gatedEngine.stopCompletion();
+      settle(new Error('model request withdrawn'));
+
+      await expect(resultPromise).resolves.toEqual({
+        text: '',
+        content: '',
+        tokens_predicted: 0,
+        interrupted: true,
+      });
+      expect(mockedStreamChat).not.toHaveBeenCalled();
+    });
+  });
+
   it('forwards params.reasoning and the constructed serverType', async () => {
     const typedEndpoint: RemoteEndpoint = {...ENDPOINT, serverType: 'Ollama'};
     const typedEngine = new OpenAICompletionEngine(typedEndpoint);
