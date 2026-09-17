@@ -1,8 +1,10 @@
 import type {ReasoningIntent} from '../../../utils/completionTypes';
 import {EFFORT_LEVELS} from '../../../utils/reasoningCapability';
-import type {Samplers} from '../../../utils/samplerParams';
+import type {SamplerParam, Samplers} from '../../../utils/samplerParams';
 import {slotsAfterSamplerRequest} from '../../../../jest/fixtures/llamaServerWire';
+import {PROPS_READ_NAMES} from '../../llamaServer/props';
 import {dialectFor} from '../index';
+import {llamaCpp} from '../llamaCpp';
 
 const reasoningBody = (serverType: unknown, reasoning?: ReasoningIntent) =>
   dialectFor(serverType).bodyExtras({samplers: {}, reasoning});
@@ -152,6 +154,7 @@ describe('bodyExtras (sampler forwarding)', () => {
     mirostat_eta: 0.21,
     seed: 12345,
     n_predict: 128,
+    n_probs: 3,
   };
 
   const BASE_KEYS = {
@@ -160,16 +163,28 @@ describe('bodyExtras (sampler forwarding)', () => {
     max_completion_tokens: 128,
   };
 
+  // Send name to the name `/slots` reports it back under. The two differ for
+  // exactly one param, and the props read map is where that asymmetry is
+  // already declared, so the check derives from it instead of naming the pair
+  // again: a param whose send name the server does not know fails here even
+  // though nobody added a case for it.
+  const readNameOf = Object.fromEntries(
+    Object.entries(llamaCpp.sendNames).map(([param, wireName]) => [
+      wireName,
+      PROPS_READ_NAMES[param as SamplerParam],
+    ]),
+  );
+
   it('spells every emitted sampler the way the server does', () => {
     const payload = samplerBody('llama.cpp', settings);
 
-    expect(Object.keys(payload)).not.toHaveLength(0);
+    // Every send name is exercised, so a param added to the map without a
+    // value here fails rather than going unchecked.
+    expect(Object.keys(payload).sort()).toEqual(
+      Object.values(llamaCpp.sendNames).sort(),
+    );
     for (const name of Object.keys(payload)) {
-      // `max_completion_tokens` is the OpenAI-standard send name; `/slots`
-      // reports that same value back under `n_predict`.
-      expect(serverSamplerNames).toContain(
-        name === 'max_completion_tokens' ? 'n_predict' : name,
-      );
+      expect(serverSamplerNames).toContain(readNameOf[name]);
     }
   });
 
@@ -197,6 +212,7 @@ describe('bodyExtras (sampler forwarding)', () => {
   it('forwards the allow-listed samplers and nothing else', () => {
     expect(samplerBody('llama.cpp', settings)).toEqual({
       ...BASE_KEYS,
+      n_probs: 3,
       top_k: 11,
       min_p: 0.11,
       typical_p: 0.91,

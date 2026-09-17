@@ -2052,6 +2052,30 @@ describe('streamChatCompletion sampler payload', () => {
     expect(body.stream).toBe(true);
   });
 
+  it('omits a non-finite sampler handed straight to the transport', async () => {
+    // `pickSamplers` drops non-finite values before the engine fills
+    // `samplers`, so every other test reaches the transport with them already
+    // gone. This caller bypasses it, which is what pins the transport-side
+    // finite rule: without it the two filters mask each other and either can
+    // be removed with nothing failing.
+    const body = await bodyOf(
+      {
+        samplers: {
+          temperature: NaN,
+          top_p: Infinity,
+          n_predict: -Infinity,
+          top_k: 10,
+        },
+      },
+      'llama.cpp',
+    );
+
+    expect(body).not.toHaveProperty('temperature');
+    expect(body).not.toHaveProperty('top_p');
+    expect(body).not.toHaveProperty('max_completion_tokens');
+    expect(body.top_k).toBe(10);
+  });
+
   it('sends an unknown server type the same body as before', async () => {
     const body = await bodyOf({
       samplers: {

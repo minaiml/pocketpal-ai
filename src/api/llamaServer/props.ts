@@ -18,7 +18,7 @@ import {llamaCpp} from '../servers/llamaCpp';
  * Total over `SamplerParam`, so a control added to the vocabulary without a
  * llama.cpp name fails to compile here.
  */
-const PROPS_READ_NAMES = {
+export const PROPS_READ_NAMES = {
   ...llamaCpp.sendNames,
   n_predict: 'n_predict',
 } satisfies Record<SamplerParam, string>;
