@@ -11,6 +11,7 @@ import type {TokenRadius, TokenStroke, TokenTypography} from '../theme/tokens';
 import {SkillKey} from '.';
 import type {TalentResult} from '../services/talents/types';
 import type {ReasoningCapability} from './reasoningCapability';
+import type {ServerType} from './serverTypes';
 import type {Samplers} from './samplerParams';
 
 /**
@@ -472,13 +473,7 @@ export interface ServerConfig {
   requestTimeoutMs?: number; // Per-server network timeout in ms; undefined = API default
   // User-selectable server type; gates the per-server reasoning wire payload.
   // detectServerType seeds it best-effort; user selection wins. undefined = unknown.
-  serverType?:
-    | 'llama.cpp'
-    | 'LM Studio'
-    | 'Ollama'
-    | 'OpenAI'
-    | 'vLLM'
-    | string;
+  serverType?: ServerType;
 }
 
 /**
@@ -584,7 +579,7 @@ export interface RemoteSessionBinding {
   serverId: string;
   remoteModelId: string;
   url: string;
-  serverType?: string;
+  serverType: ServerType;
 }
 
 export enum ModelType {

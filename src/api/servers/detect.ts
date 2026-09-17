@@ -1,3 +1,4 @@
+import type {ServerType} from '../../utils/serverTypes';
 import type {RemoteModelInfo} from '../../utils/types';
 import {normalizeUrl} from '../http';
 
@@ -9,13 +10,13 @@ const DETECT_TIMEOUT_MS = 5000;
  * 1. Server header === 'llama.cpp'
  * 2. Any model owned_by === 'organization_owner' → LM Studio
  * 3. GET / body === 'Ollama is running' → Ollama
- * 4. Unknown → ''
+ * 4. Unknown → undefined
  */
 export async function detectServerType(
   serverUrl: string,
   models: RemoteModelInfo[],
   headers: Record<string, string>,
-): Promise<string> {
+): Promise<ServerType | undefined> {
   // 1. llama.cpp sets a Server header
   const serverHeader = headers.server || headers.Server || '';
   if (serverHeader === 'llama.cpp') {
@@ -47,5 +48,5 @@ export async function detectServerType(
     // Probe failed — not Ollama
   }
 
-  return '';
+  return undefined;
 }

@@ -16,6 +16,7 @@ import {
   ServerConfig,
 } from '../utils/types';
 import {ReasoningCapability} from '../utils/reasoningCapability';
+import {toServerType} from '../utils/serverTypes';
 import {deriveListCapsMap} from '../api/servers/listCaps';
 
 const KEYCHAIN_SERVICE_PREFIX = 'pocketpal-server-';
@@ -182,11 +183,24 @@ class ServerStore {
       ],
       storage: AsyncStorage,
     }).then(() => {
-      // After hydration, fetch models for all servers
-      this.fetchAllRemoteModels();
+      this.afterHydration();
     });
 
     this.setupAppStateListener();
+  }
+
+  /**
+   * makePersistable does not type-check what it restores, so a stored
+   * serverType can be a legacy empty string or a free string. Normalising it
+   * before the first fetch makes the declared type true for every reader.
+   */
+  async afterHydration(): Promise<void> {
+    for (const server of this.servers) {
+      if (server.serverType !== undefined) {
+        server.serverType = toServerType(server.serverType);
+      }
+    }
+    await this.fetchAllRemoteModels();
   }
 
   // Actions
@@ -196,6 +210,9 @@ class ServerStore {
       ...config,
       id,
     };
+    if (newServer.serverType !== undefined) {
+      newServer.serverType = toServerType(newServer.serverType);
+    }
     this.servers.push(newServer);
     return id;
   }
@@ -212,12 +229,16 @@ class ServerStore {
     // against a router. Drop both and let the next probe / fetch repopulate.
     // Reasoning state survives: it carries user declarations, and it is not
     // server-reported.
+    const normalised =
+      updates.serverType !== undefined
+        ? {...updates, serverType: toServerType(updates.serverType)}
+        : updates;
     const invalidatesDiscovery =
-      (updates.url !== undefined && updates.url !== server.url) ||
-      (updates.serverType !== undefined &&
-        updates.serverType !== server.serverType);
+      (normalised.url !== undefined && normalised.url !== server.url) ||
+      (normalised.serverType !== undefined &&
+        normalised.serverType !== server.serverType);
 
-    Object.assign(server, updates);
+    Object.assign(server, normalised);
 
     if (invalidatesDiscovery) {
       this.remoteCaps = dropServerEntries(this.remoteCaps, id);

@@ -3184,6 +3184,7 @@ describe('ModelStore', () => {
               serverId: 'srv-1',
               remoteModelId: 'remote-model',
               url: 'http://localhost:9090',
+              serverType: 'unknown',
             };
             serverStore.remoteProps = {
               'srv-1/remote-model': {
@@ -5245,6 +5246,7 @@ describe('ModelStore', () => {
           serverId: 'srv-1',
           remoteModelId: 'llama-7b',
           url: 'http://localhost:8080',
+          serverType: 'unknown',
         };
       });
 

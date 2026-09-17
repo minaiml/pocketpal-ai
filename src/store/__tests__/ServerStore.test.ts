@@ -31,6 +31,7 @@ jest
 import {serverStore} from '../ServerStore';
 import {routerModelsBody} from '../../../jest/fixtures/remoteModelList';
 import type {RemoteModelCaps, RemoteModelInfo} from '../../utils/types';
+import type {ServerType} from '../../utils/serverTypes';
 
 // Captured at import time: the constructor runs once, and `clearAllMocks`
 // between tests would otherwise erase the only call there ever is.
@@ -249,6 +250,93 @@ describe('ServerStore', () => {
     });
   });
 
+  describe('server type normalisation', () => {
+    it('maps a hydrated legacy or free-string type to unknown', async () => {
+      runInAction(() => {
+        serverStore.servers = [
+          {
+            id: 'srv-1',
+            name: 'legacy',
+            url: 'http://localhost:8080',
+            serverType: '' as ServerType,
+          },
+          {
+            id: 'srv-2',
+            name: 'free',
+            url: 'http://localhost:8081',
+            serverType: 'LLAMA.CPP' as ServerType,
+          },
+          {id: 'srv-3', name: 'absent', url: 'http://localhost:8082'},
+        ];
+      });
+      mockedFetchModels.mockResolvedValue([]);
+
+      await serverStore.afterHydration();
+
+      expect(serverStore.servers.map(s => s.serverType)).toEqual([
+        'unknown',
+        'unknown',
+        undefined,
+      ]);
+    });
+
+    it('normalises a hydrated type before the first model fetch', async () => {
+      const seen: Array<string | undefined> = [];
+      mockedFetchModels.mockImplementation(() => {
+        seen.push(serverStore.servers[0].serverType);
+        return Promise.resolve([]);
+      });
+      runInAction(() => {
+        serverStore.servers = [
+          {
+            id: 'srv-1',
+            name: 'legacy',
+            url: 'http://localhost:8080',
+            serverType: '' as ServerType,
+          },
+        ];
+      });
+
+      await serverStore.afterHydration();
+
+      expect(seen).toEqual(['unknown']);
+    });
+
+    it('leaves an absent serverType absent on an unrelated update', () => {
+      const id = serverStore.addServer({
+        name: 'typeless',
+        url: 'http://localhost:8080',
+      });
+      runInAction(() => {
+        serverStore.remoteCaps[`${id}/m`] = {contextLength: 8192};
+        serverStore.serverModels.set(id, [
+          {id: 'm', object: 'model', owned_by: 'system'},
+        ]);
+      });
+
+      serverStore.updateServer(id, {name: 'renamed'});
+
+      expect(serverStore.servers[0].serverType).toBeUndefined();
+      expect(serverStore.remoteCaps[`${id}/m`]).toBeDefined();
+      expect(serverStore.serverModels.has(id)).toBe(true);
+    });
+
+    it('keeps caps when a legacy type is saved back as unknown', () => {
+      const id = serverStore.addServer({
+        name: 'legacy',
+        url: 'http://localhost:8080',
+        serverType: '' as ServerType,
+      });
+      runInAction(() => {
+        serverStore.remoteCaps[`${id}/m`] = {contextLength: 8192};
+      });
+
+      serverStore.updateServer(id, {serverType: 'unknown'});
+
+      expect(serverStore.remoteCaps[`${id}/m`]).toBeDefined();
+    });
+  });
+
   describe('removeServer', () => {
     it('removes a server from the list', () => {
       const id = serverStore.addServer({
@@ -448,7 +536,7 @@ describe('ServerStore', () => {
   });
 
   describe('listCaps', () => {
-    const addRouter = (serverType = 'llama.cpp') => {
+    const addRouter = (serverType: ServerType = 'llama.cpp') => {
       const id = serverStore.addServer({
         name: 'router',
         url: 'http://localhost:8080',

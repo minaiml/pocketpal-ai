@@ -95,6 +95,7 @@ import {
 } from '../utils/deviceCapabilities';
 import {detectThinkingCapability} from '../utils/thinkingCapabilityDetection';
 import {ReasoningCapability} from '../utils/reasoningCapability';
+import {toServerType} from '../utils/serverTypes';
 import {capsMatchBinding, resolveRemoteProps} from '../utils/remoteCaps';
 import {resolveModelCaps} from '../utils/modelCaps';
 import type {CapabilityEnv, ModelCapabilityView} from '../utils/modelCaps';
@@ -2689,20 +2690,22 @@ class ModelStore {
       throw new Error('Server not found');
     }
 
+    const serverType = toServerType(server.serverType);
+
     runInAction(() => {
       this.engine = new OpenAICompletionEngine(
         server.url,
         model.remoteModelId!,
         apiKey,
         server.requestTimeoutMs,
-        server.serverType,
+        serverType,
       );
       this.activeRemoteBinding = {
         modelId: model.id,
         serverId: model.serverId!,
         remoteModelId: model.remoteModelId!,
         url: server.url,
-        serverType: server.serverType,
+        serverType,
       };
       this.setActiveModel(model.id);
       // Do NOT set lastUsedModelId for remote models -- server may be offline on next launch

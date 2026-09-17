@@ -40,7 +40,7 @@ describe('detectServerType', () => {
     );
   });
 
-  it('returns empty string for unknown server', async () => {
+  it('returns undefined for unknown server', async () => {
     global.fetch = jest.fn().mockResolvedValueOnce({
       text: () => Promise.resolve('<html>Not Ollama</html>'),
     });
@@ -50,10 +50,10 @@ describe('detectServerType', () => {
       [{id: 'model-1', object: 'model', owned_by: 'custom'}],
       {},
     );
-    expect(result).toBe('');
+    expect(result).toBeUndefined();
   });
 
-  it('returns empty string when Ollama probe fails', async () => {
+  it('returns undefined when Ollama probe fails', async () => {
     global.fetch = jest.fn().mockRejectedValueOnce(new Error('Network error'));
 
     const result = await detectServerType(
@@ -61,7 +61,7 @@ describe('detectServerType', () => {
       [{id: 'model-1', object: 'model', owned_by: 'custom'}],
       {},
     );
-    expect(result).toBe('');
+    expect(result).toBeUndefined();
   });
 
   it('prefers llama.cpp header over LM Studio owned_by', async () => {

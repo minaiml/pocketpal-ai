@@ -29,7 +29,9 @@ import {isLocalHost} from '../../utils/network';
 import {parseTimeoutMs} from '../../utils/timeout';
 import {
   SERVER_TYPE_DROPDOWN_OPTIONS,
+  ServerType,
   seedServerType,
+  toServerType,
 } from '../../utils/serverTypes';
 import {RemoteModelInfo, ServerConfig} from '../../utils/types';
 import {fetchModels, fetchModelsWithHeaders} from '../../api/openai';
@@ -57,7 +59,7 @@ export const RemoteModelSheet: React.FC<RemoteModelSheetProps> = observer(
     const [serverName, setServerName] = useState('');
     const [apiKey, setApiKey] = useState('');
     const [timeoutSeconds, setTimeoutSeconds] = useState('');
-    const [serverType, setServerType] = useState('unknown');
+    const [serverType, setServerType] = useState<ServerType>('unknown');
     const [secureTextEntry, setSecureTextEntry] = useState(true);
 
     // Auto-probe
@@ -557,7 +559,7 @@ export const RemoteModelSheet: React.FC<RemoteModelSheetProps> = observer(
                   testID="server-type-dropdown"
                   value={serverType}
                   options={SERVER_TYPE_DROPDOWN_OPTIONS}
-                  onChange={setServerType}
+                  onChange={value => setServerType(toServerType(value))}
                 />
                 <Text style={styles.apiKeyDescription}>
                   {l10n.settings.serverTypeHelp}
