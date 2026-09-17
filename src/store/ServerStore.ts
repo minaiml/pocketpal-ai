@@ -18,6 +18,7 @@ import {
 import {ReasoningCapability} from '../utils/reasoningCapability';
 import {toServerType} from '../utils/serverTypes';
 import {deriveListCapsMap} from '../api/servers/listCaps';
+import {dialectFor} from '../api/servers';
 
 const KEYCHAIN_SERVICE_PREFIX = 'pocketpal-server-';
 
@@ -475,7 +476,7 @@ class ServerStore {
     resolvedApiKey?: string,
   ): Promise<void> {
     const server = this.servers.find(s => s.id === serverId);
-    if (!server || server.serverType !== 'llama.cpp') {
+    if (!server || !dialectFor(server.serverType).discovery.hasProps) {
       return;
     }
 

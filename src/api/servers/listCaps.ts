@@ -3,25 +3,19 @@ import type {
   RemoteModelInfo,
   ServerConfig,
 } from '../../utils/types';
-import {readLlamaCppListRow} from './llamaCppListRow';
+import {dialectFor} from './index';
 
 /**
- * Read a models-list row for capabilities. Pure, and never a default: anything
- * absent, wrongly typed or unparseable yields no field at all, so a caller can
- * tell "this server says no" from "this server did not say".
- *
- * The `serverType` gate lives here rather than at the call sites because the
- * two callers source that type differently, and a gate outside the function is
- * a gate that can disagree with itself.
+ * Read a models-list row for capabilities, through the dialect of the
+ * persisted server type. Pure, and never a default: anything absent, wrongly
+ * typed or unparseable yields no field at all, so a caller can tell "this
+ * server says no" from "this server did not say".
  */
 export function deriveListCaps(
   row: RemoteModelInfo | undefined,
   serverType: string | undefined,
 ): ListDerivedCaps {
-  if (serverType !== 'llama.cpp') {
-    return {tier: 'list'};
-  }
-  return readLlamaCppListRow(row);
+  return dialectFor(serverType).readModelEntry(row);
 }
 
 /**

@@ -37,6 +37,7 @@ import {RemoteModelInfo, ServerConfig} from '../../utils/types';
 import {fetchModels, fetchModelsWithHeaders} from '../../api/openai';
 import {detectServerType} from '../../api/servers/detect';
 import {deriveListCaps} from '../../api/servers/listCaps';
+import {dialectFor} from '../../api/servers';
 import {t} from '../../locales';
 
 import {createStyles} from './styles';
@@ -615,7 +616,8 @@ export const RemoteModelSheet: React.FC<RemoteModelSheetProps> = observer(
                         {l10n.settings.alreadyAdded}
                       </Text>
                     )}
-                    {serverTypeInEffect === 'llama.cpp' && (
+                    {dialectFor(serverTypeInEffect).discovery
+                      .listReportsCaps && (
                       <View
                         style={styles.modelVisionSlot}
                         testID={`remote-model-row-vision-${model.id}`}
