@@ -1,3 +1,4 @@
+import type {ServerType} from '../../utils/serverTypes';
 import type {
   ListDerivedCaps,
   RemoteModelInfo,
@@ -13,7 +14,7 @@ import {dialectFor} from './index';
  */
 export function deriveListCaps(
   row: RemoteModelInfo | undefined,
-  serverType: string | undefined,
+  serverType: ServerType | string | undefined,
 ): ListDerivedCaps {
   return dialectFor(serverType).readModelEntry(row);
 }

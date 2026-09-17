@@ -47,12 +47,18 @@ describe('DIALECTS', () => {
     expect(dialect.type).toBe(type);
   });
 
-  it.each(['', undefined, 'Llama.CPP', 'my server', 42])(
+  it.each(['', undefined, 'Llama.CPP', 'my server'])(
     'resolves the persisted value %p to the base',
     raw => {
       expect(dialectFor(raw)).toBe(openAICompatible);
     },
   );
+
+  it('resolves a stored value of the wrong kind to the base', () => {
+    // A hydrated record is not type-checked, so the cast is the storage layer,
+    // not the test taking a liberty.
+    expect(dialectFor(42 as unknown as string)).toBe(openAICompatible);
+  });
 
   it('resolves a known type to its own dialect', () => {
     expect(dialectFor('llama.cpp')).toBe(DIALECTS['llama.cpp']);

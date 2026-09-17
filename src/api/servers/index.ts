@@ -22,10 +22,14 @@ export const DIALECTS: Record<ServerType, ServerDialect> = {
 };
 
 /**
- * The dialect for a persisted type. Anything unrecognised — a legacy empty
- * string, a free string, a case variant — speaks the base, which is what those
- * values reach today.
+ * The dialect for a persisted type. The parameter admits the legacy shapes a
+ * stored row can still hold — an empty string, a free string, a case variant,
+ * an absent key — and each of those speaks the base, which is what they reach
+ * today. A value of another kind is a mistake, not a legacy case, so it is a
+ * compile error rather than a silent base dialect.
  */
-export function dialectFor(raw: unknown): ServerDialect {
+export function dialectFor(
+  raw: ServerType | string | undefined,
+): ServerDialect {
   return DIALECTS[toServerType(raw)];
 }

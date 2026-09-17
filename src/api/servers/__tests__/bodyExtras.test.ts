@@ -6,10 +6,12 @@ import {PROPS_READ_NAMES} from '../../llamaServer/props';
 import {dialectFor} from '../index';
 import {llamaCpp} from '../llamaCpp';
 
-const reasoningBody = (serverType: unknown, reasoning?: ReasoningIntent) =>
-  dialectFor(serverType).bodyExtras({samplers: {}, reasoning});
+const reasoningBody = (
+  serverType: string | undefined,
+  reasoning?: ReasoningIntent,
+) => dialectFor(serverType).bodyExtras({samplers: {}, reasoning});
 
-const samplerBody = (serverType: unknown, samplers: Samplers) =>
+const samplerBody = (serverType: string | undefined, samplers: Samplers) =>
   dialectFor(serverType).bodyExtras({samplers});
 
 describe('bodyExtras (per-serverType reasoning gating)', () => {

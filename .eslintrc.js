@@ -140,10 +140,23 @@ module.exports = {
     },
     {
       // Where a server-type literal is the value rather than a proxy for a
-      // capability: the dialects themselves, and tests and mocks that have to
-      // name the type they are exercising. Last in `overrides`, so it also
-      // wins for src/services/agent/__tests__/.
-      files: ['src/api/servers/**', '**/__tests__/**', '__mocks__/**'],
+      // capability: the dialect files, the detector that reads the type off a
+      // response, and tests and mocks that have to name the type they are
+      // exercising. Named file by file rather than as src/api/servers/**, so a
+      // module that only dispatches on the type — listCaps.ts — keeps the ban.
+      // Last in `overrides`, so it also wins for
+      // src/services/agent/__tests__/.
+      files: [
+        'src/api/servers/base.ts',
+        'src/api/servers/detect.ts',
+        'src/api/servers/llamaCpp.ts',
+        'src/api/servers/lmStudio.ts',
+        'src/api/servers/ollama.ts',
+        'src/api/servers/openaiPlatform.ts',
+        'src/api/servers/vllm.ts',
+        '**/__tests__/**',
+        '__mocks__/**',
+      ],
       rules: {
         'no-restricted-syntax': ['error', AGENT_SETTER],
       },
