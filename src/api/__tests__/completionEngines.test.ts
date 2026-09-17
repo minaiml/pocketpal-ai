@@ -56,6 +56,25 @@ describe('LocalCompletionEngine', () => {
     expect(result.timings).toEqual({predicted_per_second: 50});
   });
 
+  it('drops native timings fields that are not finite numbers', async () => {
+    (mockContext.completion as jest.Mock).mockResolvedValueOnce({
+      text: 'hi',
+      content: 'hi',
+      timings: {
+        prompt_n: 1,
+        predicted_per_second: NaN,
+        predicted_ms: 35.222,
+        cache_n: '15',
+      },
+      tokens_predicted: 2,
+      tokens_evaluated: 5,
+    });
+
+    const result = await engine.completion({messages: []} as any);
+
+    expect(result.timings).toEqual({prompt_n: 1, predicted_ms: 35.222});
+  });
+
   it('carries speculative draft_tokens counters from the native result', async () => {
     const mockResult = {
       text: 'spec',

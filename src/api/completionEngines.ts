@@ -6,6 +6,7 @@ import {
   CompletionEngine,
   CompletionResult,
   CompletionStreamData,
+  normaliseTimings,
 } from '../utils/completionTypes';
 
 export class LocalCompletionEngine implements CompletionEngine {
@@ -34,7 +35,7 @@ export class LocalCompletionEngine implements CompletionEngine {
       content: result.content,
       reasoning_content: result.reasoning_content,
       tool_calls: result.tool_calls,
-      timings: result.timings,
+      timings: normaliseTimings(result.timings),
       tokens_predicted: result.tokens_predicted,
       tokens_evaluated: result.tokens_evaluated,
       draft_tokens: result.draft_tokens,
