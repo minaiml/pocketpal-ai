@@ -160,6 +160,16 @@ const SAMPLERS: [string, Record<string, unknown>][] = [
     },
   ],
   ['unlimited length', {n_predict: -1, top_k: 40}],
+  [
+    'non-finite values',
+    {
+      temperature: Number.NaN,
+      top_p: Infinity,
+      n_predict: Number.NaN,
+      top_k: Number.NaN,
+      min_p: Infinity,
+    },
+  ],
 ];
 
 // ---- Request bodies ----
