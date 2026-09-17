@@ -61,9 +61,7 @@ export const openAICompatible = {
   readFinish: readTimingsFinish,
   readModelEntry: () => ({tier: 'list'}),
   discovery: {
-    healthPath: '/v1/models',
     hasProps: false,
-    hasRouter: false,
     listReportsCaps: false,
   },
 } satisfies ServerDialect;

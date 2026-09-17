@@ -41,13 +41,10 @@ export interface ServerDialect {
   readFinish(chunk: unknown): FinishRead;
   /** One `/v1/models` row → list-tier caps. Pure. */
   readModelEntry(row: RemoteModelInfo | undefined): ListDerivedCaps;
+  /** No flag here without a reader: an unread one is a trap, not a TODO. */
   discovery: {
-    /** Reachability probe path. */
-    healthPath: string;
     /** `GET /props` exists and is worth probing. */
     hasProps: boolean;
-    /** The llama-server router endpoints exist. */
-    hasRouter: boolean;
     /** `/v1/models` rows carry caps worth a UI slot. */
     listReportsCaps: boolean;
   };

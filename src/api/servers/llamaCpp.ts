@@ -69,9 +69,7 @@ export const llamaCpp = {
   }),
   readModelEntry: readLlamaCppListRow,
   discovery: {
-    healthPath: '/health',
     hasProps: true,
-    hasRouter: true,
     listReportsCaps: true,
   },
 } satisfies ServerDialect;
