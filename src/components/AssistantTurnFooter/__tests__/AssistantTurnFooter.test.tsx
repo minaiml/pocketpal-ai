@@ -105,6 +105,41 @@ describe('AssistantTurnFooter', () => {
     ).toBe('10ms/token');
   });
 
+  // A row stored before timings were normalised on write holds whatever the
+  // server sent, and the two bad shapes failed differently: a string threw in
+  // render, a NaN printed itself.
+  it('renders no part for a stored value that is a string', () => {
+    const message = baseTurn({
+      metadata: {
+        timings: {predicted_per_second: 'NaN', cache_n: 3},
+        completionResult: {used: 0, contextFull: false, isRemote: true},
+      },
+    });
+    expect(
+      render(<AssistantTurnFooter message={message} />).getByTestId(
+        'footer-timing',
+      ).props.children,
+    ).toBe('3 cached');
+  });
+
+  it('renders no part for a stored NaN', () => {
+    const message = baseTurn({
+      metadata: {
+        timings: {
+          predicted_per_token_ms: NaN,
+          prompt_per_second: NaN,
+          cache_n: 3,
+        },
+        completionResult: {used: 0, contextFull: false, isRemote: true},
+      },
+    });
+    expect(
+      render(<AssistantTurnFooter message={message} />).getByTestId(
+        'footer-timing',
+      ).props.children,
+    ).toBe('3 cached');
+  });
+
   it('keeps prompt speed and cached tokens off a local turn that reports them', () => {
     const timings = {...streamFinishChunk.timings, time_to_first_token_ms: 150};
     expect(timings.prompt_per_second).toBeDefined();
