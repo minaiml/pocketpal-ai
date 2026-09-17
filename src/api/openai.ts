@@ -14,6 +14,13 @@ import {
   RemoteModelProps,
   SamplerDefaults,
 } from '../utils/types';
+import {
+  CONNECTION_TIMEOUT_MS,
+  IDLE_TIMEOUT_MS,
+  buildHeaders,
+  normalizeUrl,
+  resolveTimeout,
+} from './http';
 
 /** Chat message type compatible with OpenAI API format */
 export interface OpenAIChatMessage {
@@ -233,25 +240,6 @@ function assembleFinalToolCalls(
     }));
 }
 
-const CONNECTION_TIMEOUT_MS = 30000;
-const IDLE_TIMEOUT_MS = 60000;
-
-/**
- * Single normalization site for a per-server timeout. An undefined, NaN,
- * non-finite, or non-positive value falls back to the supplied default.
- * Callers (stores, engine, sheets) forward raw values; only this layer
- * enforces the floor.
- */
-function resolveTimeout(
-  timeoutMs: number | undefined,
-  fallback: number,
-): number {
-  if (timeoutMs == null || !Number.isFinite(timeoutMs) || timeoutMs <= 0) {
-    return fallback;
-  }
-  return timeoutMs;
-}
-
 /**
  * Lightweight type guard for SSE delta shape.
  * Returns true if the parsed object looks like an OpenAI chat completion chunk.
@@ -266,26 +254,6 @@ function isValidChatChunk(parsed: any): boolean {
   const choice = parsed.choices[0];
   // delta may be empty object {} or contain content/reasoning_content
   return choice.delta !== undefined || choice.finish_reason !== undefined;
-}
-
-/**
- * Build headers for OpenAI-compatible API requests.
- */
-function buildHeaders(apiKey?: string): Record<string, string> {
-  const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
-  };
-  if (apiKey) {
-    headers.Authorization = `Bearer ${apiKey}`;
-  }
-  return headers;
-}
-
-/**
- * Normalize server URL: remove trailing slash.
- */
-function normalizeUrl(serverUrl: string): string {
-  return serverUrl.replace(/\/+$/, '');
 }
 
 /** Result from fetchModelsWithHeaders: models + raw response headers. */
