@@ -1,6 +1,8 @@
 import {LlamaContext} from 'llama.rn';
 
 import {streamChatCompletion} from './openai';
+import type {RemoteEndpoint} from './servers/dialect';
+import {pickSamplers} from '../utils/samplerParams';
 import {
   ApiCompletionParams,
   CompletionEngine,
@@ -58,13 +60,7 @@ export class LocalCompletionEngine implements CompletionEngine {
 export class OpenAICompletionEngine implements CompletionEngine {
   private abortController: AbortController | null = null;
 
-  constructor(
-    private serverUrl: string,
-    private modelId: string,
-    private apiKey?: string,
-    private timeoutMs?: number,
-    private serverType?: string,
-  ) {}
+  constructor(private endpoint: RemoteEndpoint) {}
 
   async completion(
     params: ApiCompletionParams,
@@ -75,7 +71,8 @@ export class OpenAICompletionEngine implements CompletionEngine {
     return streamChatCompletion(
       {
         messages: params.messages || [],
-        model: this.modelId,
+        model: this.endpoint.remoteModelId,
+        samplers: pickSamplers(params),
         temperature: params.temperature,
         top_p: params.top_p,
         max_tokens: params.n_predict,
@@ -102,12 +99,9 @@ export class OpenAICompletionEngine implements CompletionEngine {
         // Reasoning intent carried on the params; openai.ts owns the wire shape.
         reasoning: params.reasoning,
       },
-      this.serverUrl,
-      this.apiKey,
+      this.endpoint,
       this.abortController.signal,
       callback,
-      this.timeoutMs,
-      this.serverType,
     );
   }
 

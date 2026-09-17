@@ -23,13 +23,11 @@ import {
 // ---- Adapters: the only part a restructure is allowed to edit. ----
 
 const engineFor = (serverType: unknown) =>
-  new OpenAICompletionEngine(
-    'http://localhost:8080',
-    'm',
-    undefined,
-    undefined,
-    serverType as any,
-  );
+  new OpenAICompletionEngine({
+    url: 'http://localhost:8080',
+    remoteModelId: 'm',
+    serverType: serverType as any,
+  });
 
 const readProps = (modelId?: string) =>
   fetchServerProps('http://localhost:8080', undefined, undefined, modelId);

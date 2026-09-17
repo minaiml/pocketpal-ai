@@ -5028,7 +5028,7 @@ describe('ModelStore', () => {
 
       await modelStore.setRemoteModel(remoteModel);
 
-      expect((modelStore.engine as any).timeoutMs).toBe(600000);
+      expect((modelStore.engine as any).endpoint.timeoutMs).toBe(600000);
     });
 
     it('builds the engine with undefined timeout for a server without the field', async () => {
@@ -5040,7 +5040,7 @@ describe('ModelStore', () => {
 
       await modelStore.setRemoteModel(remoteModel);
 
-      expect((modelStore.engine as any).timeoutMs).toBeUndefined();
+      expect((modelStore.engine as any).endpoint.timeoutMs).toBeUndefined();
     });
 
     it('rebuilds the engine with an updated timeout on re-selection', async () => {
@@ -5055,7 +5055,7 @@ describe('ModelStore', () => {
         ];
       });
       await modelStore.setRemoteModel(remoteModel);
-      expect((modelStore.engine as any).timeoutMs).toBe(30000);
+      expect((modelStore.engine as any).endpoint.timeoutMs).toBe(30000);
 
       // User edits the timeout, then re-selects the model.
       runInAction(() => {
@@ -5063,7 +5063,7 @@ describe('ModelStore', () => {
       });
       await modelStore.setRemoteModel(remoteModel);
 
-      expect((modelStore.engine as any).timeoutMs).toBe(600000);
+      expect((modelStore.engine as any).endpoint.timeoutMs).toBe(600000);
     });
 
     it('builds the engine carrying the saved serverType', async () => {
@@ -5080,7 +5080,7 @@ describe('ModelStore', () => {
 
       await modelStore.setRemoteModel(remoteModel);
 
-      expect((modelStore.engine as any).serverType).toBe('Ollama');
+      expect((modelStore.engine as any).endpoint.serverType).toBe('Ollama');
     });
   });
 

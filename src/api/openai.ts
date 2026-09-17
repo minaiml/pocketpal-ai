@@ -15,6 +15,8 @@ import {
   resolveTimeout,
 } from './http';
 import {encodeMessagesForRemote, hasLocalImageAttachment} from './remoteImages';
+import type {RemoteEndpoint} from './servers/dialect';
+import type {Samplers} from '../utils/samplerParams';
 
 /** Chat message type compatible with OpenAI API format */
 export interface OpenAIChatMessage {
@@ -133,6 +135,8 @@ export function buildSamplerPayload(
 export interface StreamChatParams {
   messages: OpenAIChatMessage[];
   model: string;
+  /** Every sampler the caller wants forwarded, under the app's own names. */
+  samplers: Samplers;
   temperature?: number;
   top_p?: number;
   max_tokens?: number;
@@ -443,14 +447,12 @@ export function buildReasoningPayload(
 
 export async function streamChatCompletion(
   params: StreamChatParams,
-  serverUrl: string,
-  apiKey?: string,
+  endpoint: RemoteEndpoint,
   signal?: AbortSignal,
   onToken?: (data: CompletionStreamData) => void,
-  timeoutMs?: number,
-  serverType?: string,
 ): Promise<CompletionResult> {
-  const url = `${normalizeUrl(serverUrl)}/v1/chat/completions`;
+  const {apiKey, serverType, timeoutMs} = endpoint;
+  const url = `${normalizeUrl(endpoint.url)}/v1/chat/completions`;
   const connectionTimeoutMs = resolveTimeout(timeoutMs, CONNECTION_TIMEOUT_MS);
   const idleTimeoutMs = resolveTimeout(timeoutMs, IDLE_TIMEOUT_MS);
   // Only pay the async encode when a local image is actually attached; the

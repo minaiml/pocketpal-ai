@@ -2693,13 +2693,13 @@ class ModelStore {
     const serverType = toServerType(server.serverType);
 
     runInAction(() => {
-      this.engine = new OpenAICompletionEngine(
-        server.url,
-        model.remoteModelId!,
+      this.engine = new OpenAICompletionEngine({
+        url: server.url,
+        remoteModelId: model.remoteModelId!,
         apiKey,
-        server.requestTimeoutMs,
+        timeoutMs: server.requestTimeoutMs,
         serverType,
-      );
+      });
       this.activeRemoteBinding = {
         modelId: model.id,
         serverId: model.serverId!,
