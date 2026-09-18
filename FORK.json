@@ -1,0 +1,14 @@
+{
+  "fork": "minaiml/pocketpal-ai",
+  "source": "a-ghorbani/pocketpal-ai",
+  "source_url": "https://github.com/a-ghorbani/pocketpal-ai",
+  "commit": "6cf3944a47a196d2a68b1ba05d2534bd0ec20dd5",
+  "branch": "main",
+  "fetched": "2026-09-18",
+  "upstream_license": "MIT",
+  "upstream_license_name": "MIT License",
+  "role": "phone app — local models on iOS and Android",
+  "note": "Forked at the commit below with its licence intact. Upstream is the source of truth; this fork is a pinned reference for the minaiml delivery catalogue.",
+  "estate_license": "not applicable — no estate code added to this fork",
+  "policy": "https://github.com/minaiml"
+}
